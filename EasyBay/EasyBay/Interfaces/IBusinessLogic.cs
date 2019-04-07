@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EasyBay.Interfaces
 {
-    interface IBusinessLogic
+    public interface IBusinessLogic
     {
         void RaisePrice(User user, Lot lot, int newPrice);
 

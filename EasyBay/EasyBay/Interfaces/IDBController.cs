@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EasyBay.Interfaces
 {
-    interface IDBController
+    public interface IDBController
     {
         void AddUser(User user);
         void DeleteUser(User user);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EasyBay.Interfaces
 {
-    interface IAuctionFacade
+    public interface IAuctionFacade
     {
         void CreateNewUser(string username, string password, string email);
         void EditUser(string password, string email);
