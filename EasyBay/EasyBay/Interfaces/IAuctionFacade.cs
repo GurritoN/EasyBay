@@ -15,15 +15,18 @@ namespace EasyBay.Interfaces
         void Deposit(string username, int amount);
         void DeleteUser(string username);
 
-        void CreateNewLot(string username, string name, string description, int startingPrice, int buyOutPrice, DateTime tradeFinishTime);
-        void EditLot(string name, string description, int? buyOutPrice, DateTime? tradeFinishTime);
+        void CreateNewLot(string username, string name, string description, int startingPrice, int buyOutPrice, DateTime tradeFinishTime, List<Tag> tags);
+        void EditLot(string name, string description, int? buyOutPrice, DateTime? tradeFinishTime, List<Tag> tags);
         Lot GetLot(int lotID);
         Lot GetRandomLot();
         IEnumerable<Lot> GetElapsedLots();
+        IEnumerable<Lot> GetOwnedLots(int userID);
         void DeleteLot(int lotID);
 
         void RaisePrice(string username, int lotID, int newPrice);
         void BuyOut(string username, int lotID);
         void ProcessPurchase(int lotID);
+
+        void ClearUnusedTags(string name);
     }
 }
