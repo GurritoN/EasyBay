@@ -25,11 +25,6 @@ namespace EasyBay.DataBase
             modelBuilder.Entity<Tag>().HasKey(x => x.Id);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite();
-        }
-
         public DbSet<User> Users { get; set; }
         public DbSet<Lot> Lots { get; set; }
         public DbSet<Tag> Tags { get; set; }

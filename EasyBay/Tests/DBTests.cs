@@ -4,6 +4,7 @@ using EasyBay.DataBase;
 using Storage;
 using System.Linq;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace EasyBay.Tests
 {
@@ -15,7 +16,8 @@ namespace EasyBay.Tests
         [TestInitialize]
         public void SetupContext()
         {
-            db = new DBController();
+            var options = new DbContextOptionsBuilder<AuctionContext>().UseSqlite("Data Source=test.db").Options;
+            db = new DBController(new AuctionContext(options));
         }
 
         [TestMethod]
