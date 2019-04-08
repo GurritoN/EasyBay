@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyBay.Interfaces;
+using EasyBay.DataBase;
 using Storage;
 using System.Linq;
 using System;
@@ -10,6 +11,12 @@ namespace EasyBay.Tests
     public class DBTests
     {
         private IDBController db;
+
+        [TestInitialize]
+        public void SetupContext()
+        {
+            db = new DBController();
+        }
 
         [TestMethod]
         public void AddUserTest()
