@@ -9,7 +9,7 @@ namespace EasyBay.BusinessLogic
 {
     public class BusinessLogicInternal : IBusinessLogic
     {
-        public void RaisePrice(User user, Lot lot, int newPrice)
+        public void RaisePrice(User user, Lot lot, decimal newPrice)
         {
             if (lot.CurrentPrice >= newPrice)
                 throw new ArgumentException("Price must be higher than current");
@@ -78,7 +78,7 @@ namespace EasyBay.BusinessLogic
             lot.IsActive = false;
         }
 
-        public void Deposit(User user, int amount)
+        public void Deposit(User user, decimal amount)
         {
             if (user.FreeBalance + amount < 0)
                 throw new NotEnoughMoneyException();

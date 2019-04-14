@@ -8,8 +8,8 @@ namespace Storage
     {
         public int Id { get; set; }
         public DateTime TradeFinishTime { get; set; }
-        public int BuyOutPrice { get; set; }
-        public int CurrentPrice { get; set; }
+        public decimal BuyOutPrice { get; set; }
+        public decimal CurrentPrice { get; set; }
         public bool IsActive { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

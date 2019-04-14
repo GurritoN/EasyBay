@@ -25,6 +25,8 @@ namespace Storage
             LotsForSale = new List<Lot>();
             TrackedLots = new List<Lot>();
             BoughtLots = new List<Lot>();
+            Balance = 0;
+            LockedBalance = 0;
         }
     }
 
