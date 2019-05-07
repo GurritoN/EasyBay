@@ -12,7 +12,7 @@ namespace EasyBay.BusinessLogic
     {
         private DBController db;
         private BusinessLogicInternal logic;
-        private Random rand;
+        private Random rand = new Random();
 
         public AuctionFacade(AuctionContext dbContext)
         {
@@ -151,6 +151,11 @@ namespace EasyBay.BusinessLogic
         public IEnumerable<Lot> GetElapsedLots()
         {
             return db.Lots.Where(l => l.TradeFinishTime < DateTime.Now);
+        }
+
+        public IEnumerable<Lot> GetActualLots()
+        {
+            return db.Lots.Where(l => l.IsActive);
         }
 
         public Lot GetLot(int lotID)

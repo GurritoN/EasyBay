@@ -20,6 +20,7 @@ namespace EasyBay.Interfaces
         Lot GetLot(int lotID);
         Lot GetRandomLot();
         IEnumerable<Lot> GetElapsedLots();
+        IEnumerable<Lot> GetActualLots();
         IEnumerable<Lot> GetOwnedLots(string username);
         void DeleteLot(int lotID);
 

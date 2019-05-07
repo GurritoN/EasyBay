@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.489
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyBay", "EasyBay\EasyBay.csproj", "{80746581-892A-4593-941B-908F095047AE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage", "Storage\Storage.csproj", "{E6B6B7A8-D82D-4F90-B683-823871977006}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyBay.Tests", "Tests\EasyBay.Tests.csproj", "{B94871C8-74D9-4324-A507-2703E399FDF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyBay.Tests", "Tests\EasyBay.Tests.csproj", "{B94871C8-74D9-4324-A507-2703E399FDF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
