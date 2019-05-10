@@ -74,6 +74,10 @@ namespace EasyBay.BusinessLogic
             user.Username = username;
             user.Password = password;
             user.Email = email;
+            if (user.Username == "admin")
+                user.Role = Role.Admin;
+            else
+                user.Role = Role.User;
             db.AddUser(user);
         }
 

@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using EasyBay.BusinessLogic;
 using EasyBay.DataBase;
+using EasyBay.Interfaces;
 using EasyBay.Messaging;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authorization;
@@ -20,40 +21,45 @@ namespace EasyBay.Controllers.API
     [ApiController]
     public class UserController : ControllerBase
     {
-        private AuctionFacade facade;
+        private IAuctionFacade facade;
 
         public UserController(AuctionContext context)
         {
             facade = new AuctionFacade(context);
         }
 
-        [HttpGet("get/{username}")]
+        [HttpGet("{username}")]
         public User Get(string username)
         {
             return facade.GetUser(username);
         }
 
-        [HttpPut("register")]
+        [HttpPut]
         public void Create(CreateUserRequest request)
         {
             facade.CreateNewUser(request.Username, request.Password, request.Email);
         }
 
         [Authorize]
-        [HttpPatch("edit")]
+        [HttpPatch]
         public void Edit(EditUserRequest request)
         {
-            facade.EditUser(request.Username, request.Password, request.Email);
+            if (User.IsInRole(Role.Admin) || request.Username == User.Identity.Name)
+                facade.EditUser(request.Username, request.Password, request.Email);
         }
 
         [Authorize]
-        [HttpDelete("delete")]
-        public void Delete()
+        [HttpDelete]
+        public void Delete(string username)
         {
-            facade.DeleteUser(User.Identity.Name);
+            if (User.IsInRole(Role.Admin) || username == User.Identity.Name)
+            {
+                facade.DeleteUser(User.Identity.Name);
+                //manage with logout there
+            }
         }
 
-        [HttpPost("/token")]
+        [HttpPost]
         public string Token(string username, string password)
         {
             var identity = GetIdentity(username, password);

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using EasyBay.BusinessLogic;
 using EasyBay.DataBase;
+using EasyBay.Interfaces;
 using EasyBay.Messaging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Storage;
@@ -15,43 +17,46 @@ namespace EasyBay.Controllers.API
     [ApiController]
     public class LotsController : ControllerBase
     {
-        private AuctionFacade facade;
+        private IAuctionFacade facade;
 
         public LotsController(AuctionContext context)
         {
             facade = new AuctionFacade(context);
         }
 
-        [HttpPost("all")]
-        public IEnumerable<Lot> Lots(int page = 0, int pagesize = 10)
+        [HttpPost]
+        public IEnumerable<Lot> All(int page = 0, int pagesize = 10)
         {
             return facade.GetActualLots().Skip(pagesize * page).Take(pagesize);
         }
 
-        [HttpGet("get/{id}")]
-        public Lot Lot(int id)
+        [HttpGet("{id}")]
+        public Lot Get(int id)
         {
             return facade.GetLot(id);
         }
 
-        [HttpPut("create")]
+        [Authorize]
+        [HttpPut]
         public void Create(CreateLotRequest request)
         {
-            //auth logic
-            facade.CreateNewLot("user", request.Name, request.Description, request.StartingPrice, request.BuyOutPrice, request.TradeFinishTime, request.Tags);
+            facade.CreateNewLot(User.Identity.Name, request.Name, request.Description, request.StartingPrice, request.BuyOutPrice, request.TradeFinishTime, request.Tags);
         }
 
-        [HttpPatch("edit")]
+        [Authorize]
+        [HttpPatch]
         public void Edit(EditLotRequest request)
         {
-            //auth logic
-            facade.EditLot(request.Id, request.Name, request.Description, request.BuyOutPrice, request.TradeFinishTime, request.Tags);
+            if (User.IsInRole(Role.Admin) || facade.GetOwnedLots(User.Identity.Name).Any(l => l.Id == request.Id))
+                facade.EditLot(request.Id, request.Name, request.Description, request.BuyOutPrice, request.TradeFinishTime, request.Tags);
         }
 
-        [HttpDelete("delete/{id}")]
+        [Authorize]
+        [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            facade.DeleteLot(id);
+            if (User.IsInRole(Role.Admin) || facade.GetOwnedLots(User.Identity.Name).Any(l => l.Id == id))
+                facade.DeleteLot(id);
         }
     }
 }
