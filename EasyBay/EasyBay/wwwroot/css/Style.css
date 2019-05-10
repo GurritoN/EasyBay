@@ -1,0 +1,143 @@
+﻿* {
+    font-family: Georgia, Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+    background-color: #ede6e8;
+}
+
+header {
+    background-color: black;
+    padding: 0px 100px 0px 100px;
+    height: 80px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn {
+    background: #fff;
+    color: #e22343;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 10px 10px;
+    margin: 0 10px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid black;
+    font-size: 18px;
+}
+
+.bar {
+    color: antiquewhite;
+    display: inline-block;
+    padding: 10px 10px;
+    margin: 0 10px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.block-animation {
+    transition: background-color 1s linear;
+}
+
+    .block-animation:hover {
+        background-color: #fab1b1;
+    }
+
+main {
+    padding: 20px 100px 20px 100px;
+    min-height: calc(100% - 80px - 58px - 40px);
+    background: url(../images/aukcion.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+.header-left {
+    float: left;
+    font-size: 40px;
+}
+
+.header-right {
+    float: right;
+    font-size: 20px;
+}
+
+.content {
+    border: 1px;
+    border-radius: 10px;
+    background-color: white;
+    opacity: 0.9;
+    padding: 20px 50px 20px 50px;
+}
+
+.home-content {
+    text-align: center;
+}
+
+#home-signup {
+    width: 140px;
+    height: 70px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 25px;
+    color: #e22343;
+}
+
+.home-content h1 {
+    font-size: 50px;
+}
+
+p.option {
+    font-size: 20px;
+}
+
+
+.logo {
+    float: left;
+    width: 150px;
+}
+
+.grow:hover {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+
+.left{
+    float: left ;
+}
+
+.right {
+    float: right;
+}
+
+.clearfix:after {
+    content: '';
+    display: table;
+    width: 100%;
+    clear: both;
+}
+
+.bar-pic {
+    background: url(../images/35.jpg) no-repeat center top / cover;
+}

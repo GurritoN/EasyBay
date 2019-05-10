@@ -6,6 +6,7 @@ using EasyBay.BusinessLogic;
 using EasyBay.Controllers.API;
 using EasyBay.DataBase;
 using EasyBay.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -54,7 +55,12 @@ namespace EasyBay
                             ValidateIssuerSigningKey = true,
                         };
                     });
-
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("/User/Login");
+                    options.LogoutPath = new PathString("/User/Logout");
+                });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

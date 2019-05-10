@@ -1,0 +1,17 @@
+﻿@model EasyBay.ViewModels.RegisterViewModel
+
+    <form asp-action="Register" asp-controller="User">
+        <label for="Username">Login</label><br />
+        <input type="text" name="Username" asp-for="Username" /><br />
+        <br />
+        <label for="Password">Password</label><br />
+        <input name="Password" asp-for="Password" /><br />
+        <br />
+        <label for="ConfirmPassword">ConfirmPassword</label><br />
+        <input name="ConfirmPassword" asp-for="ConfirmPassword" /><br />
+        <br />
+        <label for="Email">Email</label><br />
+        <input name="Email" asp-for="Email" /><br />
+        <br />
+        <button type="submit">Registration</button>
+    </form>
