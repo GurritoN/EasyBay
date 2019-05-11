@@ -50,8 +50,8 @@ namespace EasyBay.Controllers.API
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpDelete]
-        public void Delete([FromForm]string username)
+        [HttpDelete("{username}")]
+        public void Delete(string username)
         {
             if (User.IsInRole(Role.Admin) || username == User.Identity.Name)
             {
