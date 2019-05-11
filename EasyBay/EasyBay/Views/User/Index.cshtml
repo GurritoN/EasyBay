@@ -1,0 +1,44 @@
+﻿@model Storage.User
+@namespace Storage
+
+    <div >
+        <fieldset class="fform">
+            <div class="content">
+                <label for="username">Username:</label>
+                <text id="username"><em> @Model.Username</em></text><br />
+                <br />
+
+                <label for="email">Email:</label>
+                <text id="email"><em> @Model.Email</em></text><br />
+                <br />
+
+                <label for="balance">Balance:</label>
+                <text id="balance"><em> @Model.Balance GTC</em></text><br />
+                <br />
+
+                <label for="loc">Locked Balance:</label>
+                <text id="loc"><em> @Model.LockedBalance GTC</em></text><br />
+                <br />
+
+                <a class="btn grow" asp-controller="User" asp-action="Change" asp-route-username="@Model.Username">Change</a>
+            </div>
+            
+
+        </fieldset>
+        
+            
+
+            
+
+
+            @if (User.IsInRole(Role.Admin))
+            {
+                <form method="post" asp-controller="Users" asp-action="Index" asp-route-username="@Model.Username">
+                    <input type="number" name="newBalance" value="@Model.Balance" />
+                    <select-role current="@Model.Role"></select-role>
+
+                    <input class="btn" type="submit" value="Edit" />
+                </form>
+            }
+        </div>
+    </div>

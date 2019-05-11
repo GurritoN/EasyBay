@@ -3,6 +3,7 @@ using EasyBay.Interfaces;
 using Storage;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -209,6 +210,16 @@ namespace EasyBay.BusinessLogic
         public bool ValidateCredentials(string username, string password)
         {
             return db.Users.Any(u => u.Username == username && u.Password == password);
+        }
+
+        public void AddImageToLot(int lotId, Stream image)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Stream GetLotImage(int lotId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

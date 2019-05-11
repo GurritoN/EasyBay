@@ -1,6 +1,7 @@
 ﻿using Storage;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,9 @@ namespace EasyBay.Interfaces
 {
     public interface IAuctionFacade
     {
+        void AddImageToLot(int lotId, Stream image);
+        Stream GetLotImage(int lotId);
+
         void CreateNewUser(string username, string password, string email);
         void EditUser(string username, string password, string email);
         bool ValidateCredentials(string username, string password);
