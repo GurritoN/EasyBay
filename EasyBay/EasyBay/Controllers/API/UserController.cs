@@ -28,6 +28,7 @@ namespace EasyBay.Controllers.API
             facade = new AuctionFacade(context);
         }
 
+        [Authorize]
         [HttpGet("{username}")]
         public User Get(string username)
         {
@@ -35,22 +36,22 @@ namespace EasyBay.Controllers.API
         }
 
         [HttpPut]
-        public void Create(CreateUserRequest request)
+        public void Create([FromForm]string username, [FromForm]string password, [FromForm]string email)
         {
-            facade.CreateNewUser(request.Username, request.Password, request.Email);
+            facade.CreateNewUser(username, password, email);
         }
 
         [Authorize]
         [HttpPatch]
-        public void Edit(EditUserRequest request)
+        public void Edit([FromForm]string username, [FromForm]string password, [FromForm]string email)
         {
-            if (User.IsInRole(Role.Admin) || request.Username == User.Identity.Name)
-                facade.EditUser(request.Username, request.Password, request.Email);
+            if (User.IsInRole(Role.Admin) || username == User.Identity.Name)
+                facade.EditUser(username, password, email);
         }
 
         [Authorize]
         [HttpDelete]
-        public void Delete(string username)
+        public void Delete([FromForm]string username)
         {
             if (User.IsInRole(Role.Admin) || username == User.Identity.Name)
             {
@@ -59,8 +60,8 @@ namespace EasyBay.Controllers.API
             }
         }
 
-        [HttpPost]
-        public string Token(string username, string password)
+        [HttpPost("token")]
+        public string Token([FromForm]string username, [FromForm]string password)
         {
             var identity = GetIdentity(username, password);
             if (identity == null)
@@ -71,6 +72,8 @@ namespace EasyBay.Controllers.API
             var now = DateTime.UtcNow;
 
             var jwt = new JwtSecurityToken(
+                    issuer: Auth.ISSUER,
+                    audience: Auth.AUDIENCE,
                     notBefore: now,
                     claims: identity.Claims,
                     expires: now.Add(TimeSpan.FromDays(1)),

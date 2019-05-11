@@ -9,6 +9,8 @@ namespace EasyBay.Controllers.API
 {
     public class Auth
     {
+        public const string ISSUER = "EasyBay";
+        public const string AUDIENCE = "EasyBay.Terminal";
         const string KEY = "mysupersecret_secretkey!123";
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {

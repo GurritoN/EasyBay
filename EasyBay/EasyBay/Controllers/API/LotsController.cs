@@ -25,7 +25,7 @@ namespace EasyBay.Controllers.API
         }
 
         [HttpPost]
-        public IEnumerable<Lot> All(int page = 0, int pagesize = 10)
+        public IEnumerable<Lot> All([FromForm]int page = 0, [FromForm]int pagesize = 10)
         {
             return facade.GetActualLots().Skip(pagesize * page).Take(pagesize);
         }
@@ -38,14 +38,14 @@ namespace EasyBay.Controllers.API
 
         [Authorize]
         [HttpPut]
-        public void Create(CreateLotRequest request)
+        public void Create([FromBody]CreateLotRequest request)
         {
             facade.CreateNewLot(User.Identity.Name, request.Name, request.Description, request.StartingPrice, request.BuyOutPrice, request.TradeFinishTime, request.Tags);
         }
 
         [Authorize]
         [HttpPatch]
-        public void Edit(EditLotRequest request)
+        public void Edit([FromBody]EditLotRequest request)
         {
             if (User.IsInRole(Role.Admin) || facade.GetOwnedLots(User.Identity.Name).Any(l => l.Id == request.Id))
                 facade.EditLot(request.Id, request.Name, request.Description, request.BuyOutPrice, request.TradeFinishTime, request.Tags);
@@ -53,7 +53,7 @@ namespace EasyBay.Controllers.API
 
         [Authorize]
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete([FromForm]int id)
         {
             if (User.IsInRole(Role.Admin) || facade.GetOwnedLots(User.Identity.Name).Any(l => l.Id == id))
                 facade.DeleteLot(id);

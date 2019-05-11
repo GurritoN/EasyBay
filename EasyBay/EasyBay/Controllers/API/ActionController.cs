@@ -24,14 +24,14 @@ namespace EasyBay.Controllers.API
 
         [Authorize]
         [HttpPost]
-        public void RaisePrice(int lotID, decimal newPrice)
+        public void RaisePrice([FromForm]int lotID, [FromForm]decimal newPrice)
         {
             facade.RaisePrice(User.Identity.Name, lotID, newPrice);
         }
 
         [Authorize]
         [HttpPost]
-        public void BuyOut(int lotID)
+        public void BuyOut([FromForm]int lotID)
         {
             facade.BuyOut(User.Identity.Name, lotID);
         }
