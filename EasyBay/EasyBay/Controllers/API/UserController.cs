@@ -28,7 +28,7 @@ namespace EasyBay.Controllers.API
             facade = new AuctionFacade(context);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{username}")]
         public User Get(string username)
         {
@@ -41,7 +41,7 @@ namespace EasyBay.Controllers.API
             facade.CreateNewUser(username, password, email);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPatch]
         public void Edit([FromForm]string username, [FromForm]string password, [FromForm]string email)
         {
@@ -49,14 +49,13 @@ namespace EasyBay.Controllers.API
                 facade.EditUser(username, password, email);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete]
         public void Delete([FromForm]string username)
         {
             if (User.IsInRole(Role.Admin) || username == User.Identity.Name)
             {
                 facade.DeleteUser(User.Identity.Name);
-                //manage with logout there
             }
         }
 

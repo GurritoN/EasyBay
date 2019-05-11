@@ -36,14 +36,14 @@ namespace EasyBay.Controllers.API
             return facade.GetLot(id);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
         public void Create([FromBody]CreateLotRequest request)
         {
             facade.CreateNewLot(User.Identity.Name, request.Name, request.Description, request.StartingPrice, request.BuyOutPrice, request.TradeFinishTime, request.Tags);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPatch]
         public void Edit([FromBody]EditLotRequest request)
         {
@@ -51,7 +51,7 @@ namespace EasyBay.Controllers.API
                 facade.EditLot(request.Id, request.Name, request.Description, request.BuyOutPrice, request.TradeFinishTime, request.Tags);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete("{id}")]
         public void Delete([FromForm]int id)
         {

@@ -22,14 +22,14 @@ namespace EasyBay.Controllers.API
             facade = new AuctionFacade(context);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public void RaisePrice([FromForm]int lotID, [FromForm]decimal newPrice)
         {
             facade.RaisePrice(User.Identity.Name, lotID, newPrice);
         }
 
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost]
         public void BuyOut([FromForm]int lotID)
         {

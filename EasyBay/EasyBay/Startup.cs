@@ -6,6 +6,7 @@ using EasyBay.BusinessLogic;
 using EasyBay.Controllers.API;
 using EasyBay.DataBase;
 using EasyBay.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,25 +44,25 @@ namespace EasyBay
 
             services.AddScoped<IAuctionFacade, AuctionFacade>();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new TokenValidationParameters
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    ValidateIssuer = true,
-                    ValidIssuer = Auth.ISSUER,
-                    ValidateAudience = true,
-                    ValidAudience = Auth.AUDIENCE,
-                    ValidateLifetime = true,
-                    IssuerSigningKey = Auth.GetSymmetricSecurityKey(),
-                    ValidateIssuerSigningKey = true,
-                };
-            });
-
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = Auth.ISSUER,
+                        ValidateAudience = true,
+                        ValidAudience = Auth.AUDIENCE,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = Auth.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                }).AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("/User/Login");
+                    options.LogoutPath = new PathString("/User/Logout");
+                });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
