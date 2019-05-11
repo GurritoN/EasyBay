@@ -214,12 +214,17 @@ namespace EasyBay.BusinessLogic
 
         public void AddImageToLot(int lotId, Stream image)
         {
-            throw new NotImplementedException();
+            string path = $"images/lotimages/{lotId}.jpg";
+            using (FileStream fs = File.Exists(path) ? File.OpenWrite(path) : File.Create(path))
+            {
+                image.CopyTo(fs);
+            }
         }
 
         public Stream GetLotImage(int lotId)
         {
-            throw new NotImplementedException();
+            string path = $"images/lotimages/{lotId}.jpg";
+            return File.Exists(path) ? File.OpenWrite(path) : null;
         }
     }
 }
