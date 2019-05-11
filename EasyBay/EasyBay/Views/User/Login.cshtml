@@ -1,11 +1,51 @@
 ﻿@model EasyBay.ViewModels.LoginViewModel
+    <div id="error" style="color: red;"></div>
+    <fieldset class="fform">
+        <form class="content" asp-action="Login" asp-controller="User">
+            <label for="Username">Login</label><br />
+            <input id="username" type="text" name="Username" asp-for="Username" /><br />
+            <br />
+            <label for="Password">Password</label><br />
+            <input id="password" name="Password" type="password" asp-for="Password" /><br />
+            <br />
+            <input type="submit" value="Enter" class="btn grow" />
+        </form>
+    </fieldset>
+    
+<script>
+    username.onblur = function() {
+        if (!isNaN(this.value)) {
+            this.className = "error";
+            error.innerHTML = 'Not corrected username'
+            $('#username').css("border","3px red solid");
+        }
+        else {
+            this.className = "";
+            error.innerHTML = "";
+            $('#username').css("border", "2px solid #b7b3b3");
+        }
+    };
 
-<form asp-action="Login" asp-controller="User">
-    <label for="Username">Login</label><br />
-    <input type="text" name="Username" asp-for="Username" /><br />
-    <br />
-    <label for="Password">Password</label><br />
-    <input name="Password" asp-for="Password" /><br />
-    <br />
-    <input type="submit" value="Enter" class="btn" />
-</form>
+    password.onblur = function () {
+        var minNumberofChars = 6;
+        var maxNumberofChars = 16;
+        var regularExpression = /^[a-zA-Z0-9!#$%^&*]{6,16}$/;
+        var newPassword = this.value;
+
+        if(newPassword.length < minNumberofChars || newPassword.length > maxNumberofChars){
+            this.className = "error";
+            error.innerHTML = 'Not corrected password'
+            $('#password').css("border","3px red solid");
+        }
+        else if (!regularExpression.test(newPassword)) {
+            this.className = "error";
+            error.innerHTML = 'password should contain atleast one number and one special character'
+            $('#password').css("border","3px red solid");
+        }
+        else {
+            this.className = "";
+            error.innerHTML = "";
+            $('#password').css("border", "2px solid #b7b3b3");
+        }
+  };
+</script>

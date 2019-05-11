@@ -16,9 +16,9 @@
         <div class="header-right">
             @if (!User.Identity.IsAuthenticated)
             {
-                <a class="bar grow" asp-controller="User" asp-action="Login">SignIn</a>
+                <a class="bar grow" asp-controller="User" asp-action="Login">Sign In</a>
                 
-                <a class="bar grow" asp-controller="User" asp-action="Register">SignUp</a>
+                <a class="bar grow" asp-controller="User" asp-action="Register">Sign Up</a>
             }
             else
             {
