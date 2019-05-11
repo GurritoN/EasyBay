@@ -24,7 +24,7 @@ namespace EasyBay.Controllers.API
             facade = new AuctionFacade(context);
         }
 
-        [HttpPost]
+        [HttpPost("all")]
         public IEnumerable<Lot> All([FromForm]int page = 0, [FromForm]int pagesize = 10)
         {
             return facade.GetActualLots().Skip(pagesize * page).Take(pagesize);
@@ -37,14 +37,14 @@ namespace EasyBay.Controllers.API
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPut]
+        [HttpPost]
         public void Create([FromBody]CreateLotRequest request)
         {
             facade.CreateNewLot(User.Identity.Name, request.Name, request.Description, request.StartingPrice, request.BuyOutPrice, request.TradeFinishTime, request.Tags);
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPatch]
+        [HttpPut]
         public void Edit([FromBody]EditLotRequest request)
         {
             if (User.IsInRole(Role.Admin) || facade.GetOwnedLots(User.Identity.Name).Any(l => l.Id == request.Id))

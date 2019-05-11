@@ -35,14 +35,14 @@ namespace EasyBay.Controllers.API
             return facade.GetUser(username);
         }
 
-        [HttpPut]
+        [HttpPost]
         public void Create([FromForm]string username, [FromForm]string password, [FromForm]string email)
         {
             facade.CreateNewUser(username, password, email);
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPatch]
+        [HttpPut]
         public void Edit([FromForm]string username, [FromForm]string password, [FromForm]string email)
         {
             if (User.IsInRole(Role.Admin) || username == User.Identity.Name)
