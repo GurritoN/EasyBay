@@ -5,6 +5,7 @@
     <title>Home</title>
 
     <link rel="stylesheet" href="~/css/style.css">
+ 
 </head>
 <body>
     <header class="bar-pic">
@@ -17,14 +18,14 @@
             @if (!User.Identity.IsAuthenticated)
             {
                 <a class="bar grow" asp-controller="User" asp-action="Login">Sign In</a>
-                
+
                 <a class="bar grow" asp-controller="User" asp-action="Register">Sign Up</a>
             }
             else
             {
-                <a asp-controller="User" asp-action="Index" asp-route-username="@User.Identity.Name">@User.Identity.Name |</a>
-                <a asp-action="Lots" asp-controller="User">Dashboard</a>
-                <a class="btn" asp-controller="User" asp-action="Logout">Logout</a>
+                <a class="bar grow" asp-controller="User" asp-action="Index" asp-route-username="@User.Identity.Name">@User.Identity.Name</a>
+                <a class="bar grow" asp-action="Lots" asp-controller="User">My Lots</a>
+                <a class="btn grow" asp-controller="User" asp-action="Logout">Logout</a>
             }
         </div>
     </header>
