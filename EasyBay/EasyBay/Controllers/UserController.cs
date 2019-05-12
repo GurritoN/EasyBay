@@ -27,7 +27,7 @@ namespace EasyBay.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("{username}")]
+        [Route("User/Page/{username}")]
         public IActionResult Index(string username)
         {
             var user = facade.GetUser(username);
@@ -47,11 +47,37 @@ namespace EasyBay.Controllers
             return View(user);
         }
         */
+        
+        [HttpGet("User/Change/{username}")]
+        [Authorize]
+        public IActionResult Change(string username)
+        {
+            return View(facade.GetUser(username));
+        }
+
+        [HttpPost("User/Change/{username}")]
+        [Authorize]
+        public IActionResult Change(string username, ChangeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = facade.GetUser(username);
+                facade.EditUser(user.Username, user.Password, model.Email);
+                facade.Deposit(user.Username, model.Balance);
+
+                return RedirectToAction("Index", "User");
+            }
+            return View(facade.GetUser(username));
+        }
+    
+
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+
 
         [HttpPost]
         public IActionResult Login(LoginViewModel model)

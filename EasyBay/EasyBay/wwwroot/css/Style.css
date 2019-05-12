@@ -146,7 +146,7 @@ p.option {
     min-height: calc(88vh - 140px);
 }
 
-input[type=text],[type=password],[type=email], select {
+input[type=text],[type=password],[type=email],[type=number], select {
     border: 2px solid #b7b3b3;
     outline: none;
     margin: 10px 0 10px 0;
@@ -155,7 +155,7 @@ input[type=text],[type=password],[type=email], select {
     height: 25px;
 }
 
-    input[type=text]:focus,[type=password]:focus,[type=email]:focus {
+    input[type=text]:focus,[type=password]:focus,[type=email]:focus,[type=number]:focus {
         border: 2px solid #555;
     }
 
