@@ -26,7 +26,7 @@ namespace EasyBay.Controllers
         {
             facade = new AuctionFacade(context);
           //  facade.CreateNewUser("admin", "sacha0147", "email@mail.ru");
-           // Lot lot = facade.CreateNewLot("admin", "TestLot", "", 100, 1000, DateTime.MaxValue, new List<string>());
+            //Lot lot = facade.CreateNewLot("admin", "Kitty", "", 100, 1000, (DateTime.Now + TimeSpan.FromDays(10)), new List<string>());
 
         }
 
@@ -50,7 +50,9 @@ namespace EasyBay.Controllers
         [Authorize]
         public IActionResult Details(int lotId)
         {
-            return View(facade.GetLot(lotId));
+            ViewBag.facade = facade;
+            Lot lot = facade.GetLot(lotId);
+            return View(lot);
         }
     }
 }

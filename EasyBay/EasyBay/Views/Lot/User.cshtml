@@ -1,5 +1,20 @@
 ﻿@using Storage
+@using System.IO
 @model IEnumerable<Lot>
+
+@functions{
+    public string GetLotImage(int lotId)
+    {
+        string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+        path += $@"\lotimages\{lotId}.jpg";
+        if (File.Exists(path))
+            return $"images/lotimages/{lotId}.jpg";
+        else
+        {
+            return "images/lotimages/default.jpg";
+        }
+    }
+}
 
 <section>
     @foreach (var item in Model)
@@ -9,7 +24,7 @@
             <hr align="center" />
             <div class="fcard">
 
-                <img alt="default" src="~/images/default.jpg" style="position: relative; width: 50%; height: 100%;" />
+                <img alt="default" src="@GetLotImage(item.Id)" style="position: relative; width: 50%; height: 100%;" />
                 <div class="content" style="position: relative; width:50%;">
                     <label for="owner">Owner:</label>
                     <text id="owner"><em>@Html.DisplayFor(modelItem => item.Owner.Username)</em></text><br />
@@ -35,21 +50,22 @@
 <div id="page-nav"></div>
 
 <script>
-    $(function() {
-    var pageParts = $(".paginate");
-    var numPages = pageParts.length;
-    var perPage = 3;
-    pageParts.slice(perPage).hide();
-    $("#page-nav").pagination({
-        items: numPages,
-        itemsOnPage: perPage,
-        cssStyle: "light-theme",
-        onPageClick: function(pageNum) {
-            var start = perPage * (pageNum - 1);
-            var end = start + perPage;
-            pageParts.hide()
-                     .slice(start, end).show();
-        }
+    $(function () {
+        var pageParts = $(".paginate");
+        var numPages = pageParts.length;
+        var perPage = 3;
+        pageParts.slice(perPage).hide();
+        $("#page-nav").pagination({
+            items: numPages,
+            itemsOnPage: perPage,
+            cssStyle: "light-theme",
+            onPageClick: function (pageNum) {
+                var start = perPage * (pageNum - 1);
+                var end = start + perPage;
+                pageParts.hide()
+                    .slice(start, end).show();
+            }
+        });
     });
-});
+
 </script>

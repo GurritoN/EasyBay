@@ -1,0 +1,175 @@
+﻿@using Storage
+@using System.IO
+@model Storage.Lot
+
+@functions{
+    public string GetLotImage(int lotId)
+    {
+        string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+        path += $@"\lotimages\{lotId}.jpg";
+        if (File.Exists(path))
+            return $"/images/lotimages/{lotId}.jpg";
+        else
+        {
+            return "/images/lotimages/default.jpg";
+        }
+    }
+}
+    <style type="text/css">
+	.timer{
+		font-size: 0;
+		text-align: center;
+	}
+	.timer_section{
+		display: inline-block;
+		vertical-align: top;
+	}
+	.timer_section > div{
+		display: inline-block;
+		vertical-align: top;
+		font-size: 50px;
+		background: #e22343;
+		color: #ffffff;
+		line-height: 70px;
+		width: 55px;
+		margin: 0 1px;
+		border-radius: 2px;
+	}
+	.timer_section > div.timer_section_desc{
+		display: block;
+		background: none;
+		color: inherit;
+		text-transform: uppercase;
+		font-size: 16px;
+		line-height: 30px;
+		width: auto;
+		margin: 0;
+	}
+	.timer_delimetr{
+		display: inline-block;
+		vertical-align: top;
+		font-size: 50px;
+		line-height: 70px;
+		margin: 0 5px;
+	}
+	
+    </style>
+    <div class="timer" data-finish="@Model.TradeFinishTime.ToString("yyyy-MM-dd HH:mm:ss")">
+        <div class="timer_section">
+            <div class="days_1">0</div>
+            <div class="days_2">0</div>
+            <div class="timer_section_desc">DAYS</div>
+        </div>
+        <div class="timer_delimetr">:</div>
+        <div class="timer_section">
+            <div class="hours_1">0</div>
+            <div class="hours_2">0</div>
+            <div class="timer_section_desc">HOURS</div>
+        </div>
+        <div class="timer_delimetr">:</div>
+        <div class="timer_section">
+            <div class="minutes_1">0</div>
+            <div class="minutes_2">0</div>
+            <div class="timer_section_desc">MIN</div>
+        </div>
+        <div class="timer_delimetr">:</div>
+        <div class="timer_section">
+            <div class="seconds_1">0</div>
+            <div class="seconds_2">0</div>
+            <div class="timer_section_desc">SEC</div>
+        </div>
+    </div>
+    <script type="text/javascript">
+	function timer(f) {
+                var date = new Date(f);
+		var f_time = Date.parse(date);
+
+		function timer_go() {
+			var n_time = Date.now();
+			var diff = f_time - n_time;
+			if(diff <= 0) return false;
+			var left = diff % 1000;
+
+			//секунды
+			diff = Math.floor(diff / 1000);
+			var s = diff % 60;
+			if(s < 10) {
+				$(".seconds_1").html(0);
+				$(".seconds_2").html(s);
+			}else {
+				$(".seconds_1").html(Math.floor(s / 10));
+				$(".seconds_2").html(s % 10);
+			}
+			//минуты
+			diff = Math.floor(diff / 60);
+			var m = diff % 60;
+			if(m < 10) {
+				$(".minutes_1").html(0);
+				$(".minutes_2").html(m);
+			}else {
+				$(".minutes_1").html(Math.floor(m / 10));
+				$(".minutes_2").html(m % 10);
+			}
+			//часы
+			diff = Math.floor(diff / 60);
+			var h = diff % 24;
+			if(h < 10) {
+				$(".hours_1").html(0);
+				$(".hours_2").html(h);
+			}else {
+				$(".hours_1").html(Math.floor(h / 10));
+				$(".hours_2").html(h % 10);
+			}
+			//дни
+			var d = Math.floor(diff / 24);
+			if(d < 10) {
+				$(".days_1").html(0);
+				$(".days_2").html(d);
+			}else {
+				$(".days_1").html(Math.floor(d / 10));
+				$(".days_2").html(d % 10);
+			}
+			setTimeout(timer_go, left);
+		}
+		setTimeout(timer_go, 0);
+	}
+
+	$(document).ready(function() {
+		var time = $(".timer").attr("data-finish");
+		timer(time);
+	});
+    </script>
+
+<fieldset class="fform block-animation paginate">
+    <text class="namecard">@Model.Name</text><br />
+    <hr align="center" />
+    <div class="fcard">
+
+        <img alt="default" src="@GetLotImage(Model.Id)" style="position: relative; width: 50%; height: 100%;" />
+        <div class="content" style="position: relative; width:50%;">
+            <label for="owner">Owner:</label>
+            <text id="owner"><em>@Model.Owner.Username</em></text><br />
+            <br />
+            <label for="desc">Description:</label>
+            <text id="desc"><em>@Model.Description</em></text><br />
+            <br />
+            <label for="curr">Current Price:</label>
+            <text id="curr"><em>@Model.CurrentPrice</em></text><br />
+            <br />
+            <label for="out">Buy Out Price:</label>
+            <text id="out"><em>@Model.BuyOutPrice</em></text><br />
+            <br />
+            <label for="time">Trade Finish Time:</label>
+            <text><em>@Model.TradeFinishTime</em></text><br />
+            <br />
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn grow block-animation">Buy Out</a><br />
+            <br />
+            <label for="price">Raise Price:</label><br />
+            <input id="price" name="Balance" type="text" value="@Model.CurrentPrice" /><br />
+            <br />
+            <button class="btn grow block-animation" type="submit" style="width: 33%">Raise</button>
+
+        </div>
+
+    </div>
+</fieldset>
