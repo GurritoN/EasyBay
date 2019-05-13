@@ -216,7 +216,8 @@ namespace EasyBay.BusinessLogic
 
         public void AddImageToLot(int lotId, Stream image)
         {
-            string path = $"images/lotimages/{lotId}.jpg";
+            string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            path += $@"\lotimages\{lotId}.jpg";
             using (FileStream fs = File.Exists(path) ? File.OpenWrite(path) : File.Create(path))
             {
                 image.CopyTo(fs);
@@ -225,7 +226,8 @@ namespace EasyBay.BusinessLogic
 
         public Stream GetLotImage(int lotId)
         {
-            string path = $"images/lotimages/{lotId}.jpg";
+            string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            path += $@"\lotimages\{lotId}.jpg";
             return File.Exists(path) ? File.OpenWrite(path) : null;
         }
     }
