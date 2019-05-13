@@ -42,7 +42,7 @@ namespace EasyBay.Controllers
         [Authorize]
         public IActionResult User(string username)
         {
-            return View(facade.GetUser(username));
+            return View(facade.GetOwnedLots(username).ToList());
         }
 
         [HttpGet("Lot/Details/{lotId}")]

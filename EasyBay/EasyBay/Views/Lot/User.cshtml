@@ -1,1 +1,55 @@
-﻿
+﻿@using Storage
+@model IEnumerable<Lot>
+
+<section>
+    @foreach (var item in Model)
+    {
+        <fieldset class="fform block-animation paginate">
+            <text class="namecard">@Html.DisplayFor(modelItem => item.Name)</text><br />
+            <hr align="center" />
+            <div class="fcard">
+
+                <img alt="default" src="~/images/default.jpg" style="position: relative; width: 50%; height: 100%;" />
+                <div class="content" style="position: relative; width:50%;">
+                    <label for="owner">Owner:</label>
+                    <text id="owner"><em>@Html.DisplayFor(modelItem => item.Owner.Username)</em></text><br />
+                    <br />
+                    <label for="curr">Current Price:</label>
+                    <text id="curr"><em>@Html.DisplayFor(modelItem => item.CurrentPrice)</em></text><br />
+                    <br />
+                    <label for="out">Buy Out Price:</label>
+                    <text id="out"><em>@Html.DisplayFor(modelItem => item.BuyOutPrice)</em></text><br />
+                    <br />
+                    <label for="time">Trade Finish Time:</label>
+                    <text><em>@Html.DisplayFor(modelItem => item.TradeFinishTime)</em></text><br />
+                    <br />
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn grow block-animation">Details</a><br />
+
+                </div>
+
+            </div>
+        </fieldset>
+    }
+</section>
+<br />
+<div id="page-nav"></div>
+
+<script>
+    $(function() {
+    var pageParts = $(".paginate");
+    var numPages = pageParts.length;
+    var perPage = 3;
+    pageParts.slice(perPage).hide();
+    $("#page-nav").pagination({
+        items: numPages,
+        itemsOnPage: perPage,
+        cssStyle: "light-theme",
+        onPageClick: function(pageNum) {
+            var start = perPage * (pageNum - 1);
+            var end = start + perPage;
+            pageParts.hide()
+                     .slice(start, end).show();
+        }
+    });
+});
+</script>
