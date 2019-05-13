@@ -14,6 +14,7 @@ using EasyBay.DataBase;
 using EasyBay.BusinessLogic;
 using EasyBay.ViewModels;
 using Storage;
+using System.IO;
 
 namespace EasyBay.Controllers
 {
@@ -24,8 +25,9 @@ namespace EasyBay.Controllers
         public LotController(AuctionContext context)
         {
             facade = new AuctionFacade(context);
-            facade.CreateNewUser("admin", "sacha0147", "email@mail.ru");
-            facade.CreateNewLot("admin", "TestLot", "", 100, 1000, DateTime.MaxValue, null);
+          //  facade.CreateNewUser("admin", "sacha0147", "email@mail.ru");
+            Lot lot = facade.CreateNewLot("admin", "TestLot", "", 100, 1000, DateTime.MaxValue, new List<string>());
+            //Stream image = facade.GetLotImage(lot.Id);
         }
 
 
@@ -33,7 +35,21 @@ namespace EasyBay.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            return View();
+            return View(facade.GetActualLots().ToList());
+        }
+
+        [HttpGet("Lot/User/{username}")]
+        [Authorize]
+        public IActionResult User(string username)
+        {
+            return View(facade.GetUser(username));
+        }
+
+        [HttpGet("Lot/Details/{lotId}")]
+        [Authorize]
+        public IActionResult Details(int lotId)
+        {
+            return View(facade.GetLot(lotId));
         }
     }
 }

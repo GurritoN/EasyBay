@@ -1,5 +1,13 @@
-﻿@model Storage.Lot
+﻿@using Storage
+@model IEnumerable<Lot>
 
-<fieldset class="fform">
+    <fieldset class="fform">
+        @foreach (var item in Model)
+        {
+            <a asp-action="Details" asp-route-id="@item.Id" class="btn">@Html.DisplayFor(modelItem => item.Name)</a>
+            <p>@Html.DisplayFor(modelItem => item.CurrentPrice)</p>
+            <p>@Html.DisplayFor(modelItem => item.BuyOutPrice)</p>
+            <p>@Html.DisplayFor(modelItem => item.TradeFinishTime)</p>
+        }
 
-</fieldset>
+    </fieldset>
