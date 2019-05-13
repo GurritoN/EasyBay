@@ -25,20 +25,4 @@
             
 
         </fieldset>
-        
-            
-
-            
-
-
-            @if (User.IsInRole(Role.Admin))
-            {
-                <form method="post" asp-controller="Users" asp-action="Index" asp-route-username="@Model.Username">
-                    <input type="number" name="newBalance" value="@Model.Balance" />
-                    <select-role current="@Model.Role"></select-role>
-
-                    <input class="btn" type="submit" value="Edit" />
-                </form>
-            }
-        </div>
     </div>

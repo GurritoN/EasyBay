@@ -1,0 +1,51 @@
+﻿@model Storage.User
+
+<div id="error" style="color: red;"></div>
+<fieldset class="fform">
+    <form class="content" asp-action="Change" asp-controller="User">
+        <label for="Email">Email</label><br />
+        <input id="email" name="Email" type="email" value="@Model.Email" asp-for="Email" /><br />
+        <br />
+        <label for="Balance">Balance</label><br />
+        <input id="balance" name="Balance" type="text" value="@Model.Balance" asp-for="Balance" /><br />
+        <br />
+        <button class="btn grow" type="submit">Confirm</button>
+    </form>
+</fieldset>
+
+<script>
+    email.onblur = function () {
+        var reg = /.+@@.+\..+/;
+        var address = this.value;
+
+        if (!reg.test(address)) {
+            this.className = "error";
+            error.innerHTML = 'Not corrected email';
+            $('#email').css("border", "3px red solid");
+        }
+        else {
+            this.className = "";
+            error.innerHTML = "";
+            $('#email').css("border", "2px solid #b7b3b3");
+        }
+    };
+
+    balance.onblur = function () {
+        if (!parseFloat(this.value)) {
+            this.className = "error";
+            error.innerHTML = 'Not corrected balance\n'
+            $('#balance').css("border", "3px red solid");
+        }
+        else  if (this.value < @Model.Balance) {
+            this.className = "error";
+            error.innerHTML = 'Less then old balance\n'
+            $('#balance').css("border", "3px red solid");
+        }
+        else {
+            this.className = "";
+            error.innerHTML = "";
+            $('#balance').css("border", "2px solid #b7b3b3");
+        }
+    };
+
+</script>

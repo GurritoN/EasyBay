@@ -24,7 +24,8 @@
             else
             {
                 <a class="bar grow" asp-controller="User" asp-action="Index" asp-route-username="@User.Identity.Name">@User.Identity.Name</a>
-                <a class="bar grow" asp-action="Lots" asp-controller="User">My Lots</a>
+                <a class="bar grow" asp-action="Lot" asp-controller="User">My Lots</a>
+                <a class="bar grow" asp-action="Lot" asp-controller="Index">Auction</a>
                 <a class="btn grow" asp-controller="User" asp-action="Logout">Logout</a>
             }
         </div>

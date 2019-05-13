@@ -35,18 +35,6 @@ namespace EasyBay.Controllers
                 return NotFound();
             return View(user);
         }
-        /*
-        [HttpPost]
-        [Authorize]
-        [Route("{username}")]
-        //Форма из users/index/username
-       
-        public IActionResult Index(string username, int newBalance, string role)
-        {
-            facade.EditUser(username, password, email);
-            return View(user);
-        }
-        */
         
         [HttpGet("User/Change/{username}")]
         [Authorize]
