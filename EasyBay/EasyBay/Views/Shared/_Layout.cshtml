@@ -5,7 +5,12 @@
     <title>Home</title>
 
     <link rel="stylesheet" href="~/css/style.css">
- 
+    <link type="text/css" rel="stylesheet" href="~/css/simplePagination.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="~/js/jquery.simplePagination.js"></script>
 </head>
 <body>
     <header class="bar-pic">
@@ -31,7 +36,7 @@
         </div>
     </header>
     <main>
-        <div class="content">
+        <div class="content-height">
             @RenderBody()
         </div>
     </main>
@@ -39,7 +44,7 @@
         &copy; Copyright 2019 EasyBay
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

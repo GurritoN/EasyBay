@@ -81,9 +81,7 @@ footer {
 
 .content {
     border: 1px;
-    border-radius: 10px;
     background-color: white;
-    opacity: 0.9;
     padding: 20px 50px 20px 50px;
 }
 
@@ -142,8 +140,8 @@ p.option {
     background: url(../images/35.jpg) no-repeat center top / cover;
 }
 
-.content {
-    min-height: calc(88vh - 140px);
+.content-height {
+    min-height: calc(100vh - 140px);
 }
 
 input[type=text],[type=password],[type=email],[type=number], select {
@@ -161,8 +159,31 @@ input[type=text],[type=password],[type=email],[type=number], select {
 
 
 .fform {
-    background-color: #f3f3f3;
+    background-color: white;
     margin-top: 10px;
     border-radius: 4px;
 }
 
+.fcard {
+    display: inline-flex;
+}
+
+.namecard {
+    position: relative;
+    height: 10%;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 0;
+    text-decoration: none;
+    font-weight: bold;
+    color: #e22343;
+}
+
+.block-animation {
+    transition: background-color 1s linear;
+}
+
+    .block-animation:hover {
+        background-color: #fab1b1;
+    }
