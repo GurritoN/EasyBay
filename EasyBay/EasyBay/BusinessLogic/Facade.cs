@@ -39,7 +39,7 @@ namespace EasyBay.BusinessLogic
             db.SaveChanges();
         }
 
-        public void CreateNewLot(string username, string name, string description, decimal startingPrice, decimal buyOutPrice, DateTime tradeFinishTime, List<string> tags)
+        public Lot CreateNewLot(string username, string name, string description, decimal startingPrice, decimal buyOutPrice, DateTime tradeFinishTime, List<string> tags)
         {
             if (startingPrice < 0 || startingPrice <= 0)
                 throw new ArgumentException("Prices can't be negative");
@@ -67,6 +67,7 @@ namespace EasyBay.BusinessLogic
             }
             lot.Tags = taglist;
             db.AddLot(lot);
+            return lot;
         }
 
         public void CreateNewUser(string username, string password, string email)
