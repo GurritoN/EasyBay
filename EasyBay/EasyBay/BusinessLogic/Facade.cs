@@ -164,6 +164,14 @@ namespace EasyBay.BusinessLogic
         {
             return db.Lots.Where(l => l.IsActive);
         }
+        public IEnumerable<Lot> GetBoughtLots(string username)
+        {
+            return GetUser(username).BoughtLots;
+        }
+        public IEnumerable<Lot> GetTrackedLots(string username)
+        {
+            return GetUser(username).TrackedLots ;
+        }
 
         public Lot GetLot(int lotID)
         {

@@ -38,7 +38,7 @@
                         <label for="time">Trade Finish Time:</label>
                         <text><em>@Html.DisplayFor(modelItem => item.TradeFinishTime)</em></text><br />
                         <br />
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn grow block-animation">Details</a><br />
+                        <a asp-action="Details" asp-route-username="@ViewBag.username" asp-route-id="@item.Id"  class="btn grow block-animation">Details</a><br />
 
                     </div>
 

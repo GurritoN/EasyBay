@@ -162,14 +162,35 @@
             <label for="time">Trade Finish Time:</label>
             <text><em>@Model.TradeFinishTime</em></text><br />
             <br />
-            <a asp-action="Details" asp-route-id="@Model.Id" class="btn grow block-animation">Buy Out</a><br />
+            <a asp-action="BuyOut" asp-route-id="@Model.Id" asp-route-username="@ViewBag.username" class="btn grow block-animation" style="width: 33%">Buy Out</a><br />
             <br />
-            <label for="price">Raise Price:</label><br />
-            <input id="price" name="Balance" type="text" value="@Model.CurrentPrice" /><br />
+            <a asp-action="Raise" type="button" asp-route-id="@Model.Id" asp-route-username="@ViewBag.username"  id="raise" class="btn grow block-animation" style="">Raise Price</a>
             <br />
-            <button class="btn grow block-animation" type="submit" style="width: 33%">Raise</button>
+            <div id="error" class="error" style="color: red;">@{ if (@ViewBag.errors != null) {@ViewBag.errors}}</div>
+</div>
 
-        </div>
 
-    </div>
+</div>
 </fieldset>
+<script>
+price.onblur = function () {
+                    if (!parseFloat(this.value)) {
+                        this.className = "error";
+                        error.innerHTML = 'Not corrected balance\n'
+                        $('#raise').prop('disabled', true);
+                        $('#price').css("border", "3px red solid");
+                    }
+                    else  if (parseFloat(this.value) <= parseFloat(@Model.CurrentPrice)) {
+                        this.className = "error";
+                        error.innerHTML = 'Less then old balance\n'
+                        $('#raise').prop('disabled', true);
+                        $('#price').css("border", "3px red solid");
+                    }
+                    else {
+                        this.className = "";
+                        error.innerHTML = "";
+                        $('#raise').prop('disabled', false);
+                        $('#price').css("border", "2px solid #b7b3b3");
+                    }
+                };
+</script>

@@ -21,20 +21,17 @@ namespace EasyBay.Controllers
     public class LotController : Controller
     {
         private readonly IAuctionFacade facade;
-
         public LotController(AuctionContext context)
         {
             facade = new AuctionFacade(context);
-          //  facade.CreateNewUser("admin", "sacha0147", "email@mail.ru");
-            //Lot lot = facade.CreateNewLot("admin", "Kitty", "", 100, 1000, (DateTime.Now + TimeSpan.FromDays(10)), new List<string>());
-
         }
 
 
-        [HttpGet]
+        [HttpGet("Lot/{username}")]
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Index(string username)
         {
+            ViewBag.username = username;
             ViewBag.facade = facade;
             return View(facade.GetActualLots().ToList());
         }
@@ -43,16 +40,76 @@ namespace EasyBay.Controllers
         [Authorize]
         public IActionResult User(string username)
         {
-            return View(facade.GetOwnedLots(username).ToList());
+            ViewBag.username = username;
+            return View(facade.GetBoughtLots(username).ToList());
         }
 
-        [HttpGet("Lot/Details/{lotId}")]
+        [HttpGet("Lot/Track/{username}")]
         [Authorize]
-        public IActionResult Details(int lotId)
+        public IActionResult Track(string username)
+        {
+            ViewBag.username = username;
+            return View(facade.GetTrackedLots(username).ToList());
+        }
+
+        [HttpGet("Lot/Details/{Id}/{username}")]
+        [Authorize]
+        public IActionResult Details(string username, int Id)
         {
             ViewBag.facade = facade;
-            Lot lot = facade.GetLot(lotId);
+            ViewBag.username = username;
+            Lot lot = facade.GetLot(Id);
             return View(lot);
+        }
+
+
+        [HttpGet("Lot/Raise/{Id}/{username}")]
+        [Authorize]
+        public IActionResult Raise(string username, int Id)
+        {
+            return View(facade.GetLot(Id));
+        }
+
+        [HttpPost("Lot/Raise/{Id}/{username}")]
+        [Authorize]
+        public IActionResult Raise(int Id, string username, RaisePriceModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = facade.GetUser(username);
+                try
+                {
+                    ViewBag.errors = null;
+                    facade.RaisePrice(username, Id, decimal.Parse(model.Price));
+                }
+                catch
+                {
+                    ViewBag.errors = "NotEnoughMoneyException";
+                    return View(facade.GetLot(Id));
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            return View(facade.GetLot(Id));
+        }
+
+
+        [Authorize]
+        public IActionResult BuyOut(int Id, string username)
+        {
+            var user = facade.GetUser(username);
+            try
+            {
+                ViewBag.errors = null;
+                facade.BuyOut(username, Id);
+            }
+            catch
+            {
+                ViewBag.errors = "NotEnoughMoneyException";
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }

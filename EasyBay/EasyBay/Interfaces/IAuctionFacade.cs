@@ -26,6 +26,8 @@ namespace EasyBay.Interfaces
         IEnumerable<Lot> GetElapsedLots();
         IEnumerable<Lot> GetActualLots();
         IEnumerable<Lot> GetOwnedLots(string username);
+        IEnumerable<Lot> GetBoughtLots(string username);
+        IEnumerable<Lot> GetTrackedLots(string username);
         void DeleteLot(int lotID);
 
         void RaisePrice(string username, int lotID, decimal newPrice);

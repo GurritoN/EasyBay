@@ -76,6 +76,7 @@ namespace EasyBay.BusinessLogic
             user.BoughtLots.Add(lot);
             user.TrackedLots.Remove(lot);
             lot.IsActive = false;
+            lot.TradeFinishTime = DateTime.Now;
         }
 
         public void Deposit(User user, decimal amount)

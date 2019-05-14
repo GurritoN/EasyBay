@@ -8,10 +8,10 @@
         string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
         path += $@"\lotimages\{lotId}.jpg";
         if (File.Exists(path))
-            return $"images/lotimages/{lotId}.jpg";
+            return $"/images/lotimages/{lotId}.jpg";
         else
         {
-            return "images/lotimages/default.jpg";
+            return "/images/lotimages/default.jpg";
         }
     }
 }
@@ -38,7 +38,7 @@
                     <label for="time">Trade Finish Time:</label>
                     <text><em>@Html.DisplayFor(modelItem => item.TradeFinishTime)</em></text><br />
                     <br />
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn grow block-animation">Details</a><br />
+
 
                 </div>
 
