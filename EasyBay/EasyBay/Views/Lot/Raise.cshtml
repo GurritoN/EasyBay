@@ -1,0 +1,37 @@
+﻿@model Storage.Lot
+
+<div id="error" style="color: red;"></div>
+<fieldset class="fform">
+    <form class="content" asp-action="Raise" asp-controller="Lot">
+
+        <label for="Price">Price</label><br />
+        <input id="price" name="price" type="text" asp-for="CurrentPrice" /><br />
+        <br />
+        <button id="confirm" class="btn grow" type="submit">Confirm</button>
+    </form>
+</fieldset>
+
+<script>
+
+price.onblur = function () {
+                    if (!parseFloat(this.value)) {
+                        this.className = "error";
+                        error.innerHTML = 'Not corrected balance\n'
+                        $('#confirm').prop('disabled', true);
+                        $('#price').css("border", "3px red solid");
+                    }
+                    else  if (parseFloat(this.value) <= parseFloat(@Model.CurrentPrice)) {
+                        this.className = "error";
+                        error.innerHTML = 'Less then old balance\n'
+                        $('#confirm').prop('disabled', true);
+                        $('#price').css("border", "3px red solid");
+                    }
+                    else {
+                        this.className = "";
+                        error.innerHTML = "";
+                        $('#confirm').prop('disabled', false);
+                        $('#price').css("border", "2px solid #b7b3b3");
+                    }
+                };
+
+</script>
