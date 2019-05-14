@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EasyBay.Terminal"
         mc:Ignorable="d"
-        Title="CreateLotWindow" Height="400" Width="400">
+        Title="Create new lot" Height="400" Width="700">
+    <Window.Resources>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Georgia" />
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -24,26 +30,26 @@
             <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">Name:</Label>
-        <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Name="Name"></TextBox>
+        <Label Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Georgia" FontSize="24">Name:</Label>
+        <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Name="Name" FontFamily="Georgia" FontSize="24"></TextBox>
 
-        <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">Description:</Label>
-        <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Grid.RowSpan="3" Name="Desc" AcceptsReturn="True" TextWrapping="Wrap" Height="100"></TextBox>
+        <Label Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Georgia" FontSize="24">Description:</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Grid.RowSpan="3" Name="Desc" AcceptsReturn="True" TextWrapping="Wrap" Height="100" FontFamily="Georgia" FontSize="24"></TextBox>
 
-        <Label Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center">Starting price:</Label>
-        <TextBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Name="SPrice"></TextBox>
+        <Label Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Georgia" FontSize="24">Starting price:</Label>
+        <TextBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Name="SPrice" FontFamily="Georgia" FontSize="24"></TextBox>
 
-        <Label Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center">Buyout price:</Label>
-        <TextBox Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Name="BPrice"></TextBox>
+        <Label Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Georgia" FontSize="24">Buyout price:</Label>
+        <TextBox Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Name="BPrice" FontFamily="Georgia" FontSize="24"></TextBox>
 
-        <Label Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center">Trade finish time:</Label>
-        <DatePicker Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Name="Finish"></DatePicker>
+        <Label Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Georgia" FontSize="24">Trade finish time:</Label>
+        <DatePicker Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Name="Finish" FontFamily="Georgia" FontSize="24"></DatePicker>
 
-        <Label Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center">Tags:</Label>
-        <TextBox Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Name="Tags"></TextBox>
+        <Label Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Georgia" FontSize="24">Tags:</Label>
+        <TextBox Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" Margin="0 0 10 0" Name="Tags" FontFamily="Georgia" FontSize="24"></TextBox>
 
-        <TextBlock Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Error" Foreground="Red"></TextBlock>
+        <TextBlock Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Error" Foreground="Red" FontFamily="Georgia" FontSize="24"></TextBlock>
 
-        <Button Grid.Row="9" Grid.ColumnSpan="2" Click="Create">Create</Button>
+        <Button Grid.Row="9" Grid.ColumnSpan="2" Click="Create" FontFamily="Georgia" FontSize="24">Create</Button>
     </Grid>
 </Window>

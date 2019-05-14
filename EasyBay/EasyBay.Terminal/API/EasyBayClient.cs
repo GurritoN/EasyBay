@@ -136,6 +136,15 @@ namespace EasyBay.Terminal.API
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> Deposit(decimal amount)
+        {
+            var content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() {
+                new KeyValuePair<string, string>("amount", amount.ToString())
+            });
+            var response = await client.PostAsync("action/deposit", content);
+            return response.IsSuccessStatusCode;
+        }
+
         #endregion
     }
 }

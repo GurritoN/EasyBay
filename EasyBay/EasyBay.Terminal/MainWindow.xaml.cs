@@ -66,7 +66,7 @@ namespace EasyBay.Terminal
             client = new EasyBayClient(Token);
             user = await client.GetUser(username);
             Username.Text = username;
-            Balance.Text = user.Balance.ToString() + " USD";
+            Balance.Text = user.FreeBalance.ToString() + " USD";
             page = 0;
             Refresh();
         }
@@ -79,24 +79,43 @@ namespace EasyBay.Terminal
             LotList.Children.Clear();
             foreach (var lot in lots)
             {
+                Border border = new Border();
+                border.BorderThickness = new Thickness(0, 0, 0, 1);
+                border.BorderBrush = Brushes.Black;
+
                 StackPanel panel = new StackPanel();
                 panel.Orientation = Orientation.Horizontal;
 
+                Image image = new Image();
+                image.Source = new BitmapImage(new Uri(@"D:\EasyBay\EasyBay\EasyBay.Terminal\img\default.jpg", UriKind.Absolute));
+                image.Width = 100;
+                panel.Children.Add(image);
+
                 TextBlock name = new TextBlock();
+                name.FontFamily = new FontFamily("Georgia");
+                name.Margin = new Thickness(10, 0, 0, 0);
                 name.Text = lot.Name;
-                name.Width = 100;
+                name.Width = 490;
                 name.FontSize = 50;
                 panel.Children.Add(name);
 
                 Button details = new Button();
                 details.Content = "Details";
+                details.HorizontalAlignment = HorizontalAlignment.Center;
+                details.VerticalAlignment = VerticalAlignment.Center;
+                details.Height = 30;
+                details.Width = 100;
                 details.Click += (s, e) =>
                 {
-                    MessageBox.Show($"{lot.Id}");
+                    LotDetailsWindow lWindow = new LotDetailsWindow(client, lot.Id, user.Id);
+                    lWindow.Owner = this;
+                    lWindow.ShowDialog();
+                    Refresh();
                 };
                 panel.Children.Add(details);
 
-                LotList.Children.Add(panel);
+                border.Child = panel;
+                LotList.Children.Add(border);
             }
         }
 
@@ -116,6 +135,26 @@ namespace EasyBay.Terminal
             CreateLotWindow clWindow = new CreateLotWindow(client);
             clWindow.Owner = this;
             clWindow.ShowDialog();
+            Refresh();
+        }
+
+        private void RightPage(object sender, RoutedEventArgs e)
+        {
+            page++;
+            GetPage();
+        }
+
+        private void LeftPage(object sender, RoutedEventArgs e)
+        {
+            page--;
+            GetPage();
+        }
+
+        private void UserPage(object sender, RoutedEventArgs e)
+        {
+            UserWindow uWindow = new UserWindow(client, user);
+            uWindow.Owner = this;
+            uWindow.ShowDialog();
             Refresh();
         }
     }

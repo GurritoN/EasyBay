@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:EasyBay.Terminal"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </Application>

@@ -35,5 +35,12 @@ namespace EasyBay.Controllers.API
         {
             facade.BuyOut(User.Identity.Name, lotID);
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("Deposit")]
+        public void Deposit([FromForm]decimal amount)
+        {
+            facade.Deposit(User.Identity.Name, amount);
+        }
     }
 }

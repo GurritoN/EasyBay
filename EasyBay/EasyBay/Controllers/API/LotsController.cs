@@ -53,7 +53,7 @@ namespace EasyBay.Controllers.API
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete("{id}")]
-        public void Delete([FromForm]int id)
+        public void Delete(int id)
         {
             if (User.IsInRole(Role.Admin) || facade.GetOwnedLots(User.Identity.Name).Any(l => l.Id == id))
                 facade.DeleteLot(id);
