@@ -9,7 +9,7 @@
         <label for="Balance">Balance</label><br />
         <input id="balance" name="Balance" type="text" value="@Model.Balance" asp-for="Balance" /><br />
         <br />
-        <button class="btn grow" type="submit">Confirm</button>
+        <button id="confirm" class="btn grow" type="submit">Confirm</button>
     </form>
 </fieldset>
 
@@ -22,10 +22,12 @@
             this.className = "error";
             error.innerHTML = 'Not corrected email';
             $('#email').css("border", "3px red solid");
+            $('#confirm').prop('disabled', true);
         }
         else {
             this.className = "";
             error.innerHTML = "";
+            $('#confirm').prop('disabled', false);
             $('#email').css("border", "2px solid #b7b3b3");
         }
     };
@@ -35,16 +37,20 @@
             this.className = "error";
             error.innerHTML = 'Not corrected balance\n'
             $('#balance').css("border", "3px red solid");
+            $('#confirm').prop('disabled', true);
         }
-        else  if (this.value < @Model.Balance) {
+        else  if (parseFloat(this.value) <= parseFloat(@Model.Balance)) {
             this.className = "error";
             error.innerHTML = 'Less then old balance\n'
             $('#balance').css("border", "3px red solid");
+            $('#confirm').prop('disabled', true);
         }
         else {
             this.className = "";
             error.innerHTML = "";
             $('#balance').css("border", "2px solid #b7b3b3");
+            $('#email').css("border", "2px solid #b7b3b3");
+            $('#confirm').prop('disabled', false);
         }
     };
 
