@@ -8,10 +8,11 @@ using System.IO;
 using System.Threading.Tasks;
 using EasyBay.Terminal.Models;
 using EasyBay.Messaging;
+using System.Text;
 
 namespace EasyBay.Terminal.API
 {
-    class EasyBayClient
+    public class EasyBayClient
     {
         private HttpClient client;
         private const string URI = @"http://localhost:51868/api/";
@@ -77,8 +78,8 @@ namespace EasyBay.Terminal.API
         #region Lots
         public async Task<bool> CreateLot(CreateLotRequest request)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(request));
-            var response = await client.PostAsync("user", content);
+            var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("lots", content);
             return response.IsSuccessStatusCode;
         }
 
@@ -89,7 +90,8 @@ namespace EasyBay.Terminal.API
                 new KeyValuePair<string, string>("pagesize", pagesize.ToString())
             });
             var response = await client.PostAsync("lots/all", content);
-            return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<List<Lot>>(await response.Content.ReadAsStringAsync()) : null;
+            string rs = await response.Content.ReadAsStringAsync();
+            return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<List<Lot>>(rs) : null;
         }
 
         public async Task<Lot> GetLot(int lotId)

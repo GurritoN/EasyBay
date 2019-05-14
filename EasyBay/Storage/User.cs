@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Storage
@@ -16,8 +17,11 @@ namespace Storage
         public string Role { get; set; }
 
         [InverseProperty("Owner")]
+        [JsonIgnore]
         public List<Lot> LotsForSale { get; set; }
+        [JsonIgnore]
         public List<Lot> TrackedLots { get; set; }
+        [JsonIgnore]
         public List<Lot> BoughtLots { get; set; }
 
         public User()

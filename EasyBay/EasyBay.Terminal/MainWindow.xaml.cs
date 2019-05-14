@@ -1,4 +1,5 @@
 ﻿using EasyBay.Terminal.API;
+using EasyBay.Terminal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,27 +23,100 @@ namespace EasyBay.Terminal
     public partial class MainWindow : Window
     {
         private EasyBayClient client;
-        private string token;
+        private User user;
+        public string username;
+        public string Token;
+
+        private int page;
 
         public MainWindow()
         {
             InitializeComponent();
+            this.ContentRendered += OnContentRendered; ;
+        }
+
+        private void OnContentRendered(object sender, EventArgs e)
+        {
+            LoginWindow lWindow = new LoginWindow();
+            lWindow.Owner = this;
+            lWindow.ShowDialog();
+            if (!string.IsNullOrEmpty(Token))
+                OnLogin();
         }
 
         private void Register(object sender, RoutedEventArgs e)
         {
-            EasyBayClient.CreateUser("GurritoN", "Apz3cmcm", "gurriton@yandex.ru").ContinueWith(t => MessageBox.Show(t.Result));
-
+            RegisterWindow rWindow = new RegisterWindow();
+            rWindow.Owner = this;
+            rWindow.ShowDialog();
+            OnLogin();
         }
 
         private void Login(object sender, RoutedEventArgs e)
         {
-            EasyBayClient.GetToken("GurritoN", "Apz3cmcm").ContinueWith(t => { token = t.Result; client = new EasyBayClient(token); MessageBox.Show(token); });
+            LoginWindow lWindow = new LoginWindow();
+            lWindow.Owner = this;
+            lWindow.ShowDialog();
+            if (!string.IsNullOrEmpty(Token))
+                OnLogin();
         }
 
-        private void Get(object sender, RoutedEventArgs e)
+        private async void OnLogin()
         {
-            client.GetUser("GurritoN").ContinueWith(t => MessageBox.Show(t.Result));
+            client = new EasyBayClient(Token);
+            user = await client.GetUser(username);
+            Username.Text = username;
+            Balance.Text = user.Balance.ToString() + " USD";
+            page = 0;
+            Refresh();
+        }
+
+        private async void GetPage()
+        {
+            List<Lot> lots = await client.GetLotPage(page, 10);
+            if (lots.Count == 0)
+                return;
+            LotList.Children.Clear();
+            foreach (var lot in lots)
+            {
+                StackPanel panel = new StackPanel();
+                panel.Orientation = Orientation.Horizontal;
+
+                TextBlock name = new TextBlock();
+                name.Text = lot.Name;
+                name.Width = 100;
+                name.FontSize = 50;
+                panel.Children.Add(name);
+
+                Button details = new Button();
+                details.Content = "Details";
+                details.Click += (s, e) =>
+                {
+                    MessageBox.Show($"{lot.Id}");
+                };
+                panel.Children.Add(details);
+
+                LotList.Children.Add(panel);
+            }
+        }
+
+        private void Refresh()
+        {
+            page = 0;
+            GetPage();
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void CreateLot(object sender, RoutedEventArgs e)
+        {
+            CreateLotWindow clWindow = new CreateLotWindow(client);
+            clWindow.Owner = this;
+            clWindow.ShowDialog();
+            Refresh();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EasyBay.Terminal.Models
 {
-    class User
+    public class User
     {
         public int Id { get; set; }
         public string Username { get; set; }
