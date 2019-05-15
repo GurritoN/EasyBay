@@ -30,6 +30,20 @@ namespace EasyBay.Controllers.API
             return facade.GetActualLots().Skip(pagesize * page).Take(pagesize);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("user")]
+        public IEnumerable<Lot> Users()
+        {
+            return facade.GetOwnedLots(User.Identity.Name);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("tracked")]
+        public IEnumerable<Lot> Tracked()
+        {
+            return facade.GetTrackedLots(User.Identity.Name);
+        }
+
         [HttpGet("{id}")]
         public Lot Get(int id)
         {

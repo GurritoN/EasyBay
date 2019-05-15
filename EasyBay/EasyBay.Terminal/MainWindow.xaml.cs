@@ -71,11 +71,8 @@ namespace EasyBay.Terminal
             Refresh();
         }
 
-        private async void GetPage()
+        private void SetContent(List<Lot> lots)
         {
-            List<Lot> lots = await client.GetLotPage(page, 10);
-            if (lots.Count == 0)
-                return;
             LotList.Children.Clear();
             foreach (var lot in lots)
             {
@@ -87,7 +84,7 @@ namespace EasyBay.Terminal
                 panel.Orientation = Orientation.Horizontal;
 
                 Image image = new Image();
-                image.Source = new BitmapImage(new Uri(@"D:\EasyBay\EasyBay\EasyBay.Terminal\img\default.jpg", UriKind.Absolute));
+                //image.Source = new BitmapImage(new Uri(@"D:\EasyBay\EasyBay\EasyBay.Terminal\img\default.jpg", UriKind.Absolute));
                 image.Width = 100;
                 panel.Children.Add(image);
 
@@ -117,6 +114,24 @@ namespace EasyBay.Terminal
                 border.Child = panel;
                 LotList.Children.Add(border);
             }
+        }
+
+        private async void GetPage()
+        {
+            List<Lot> lots = await client.GetLotPage(page, 10);
+            SetContent(lots);
+        }
+
+        private async void GetMy()
+        {
+            List<Lot> lots = await client.GetUserLots();
+            SetContent(lots);
+        }
+
+        private async void GetTracked()
+        {
+            List<Lot> lots = await client.GetTrackedLots();
+            SetContent(lots);
         }
 
         private void Refresh()
@@ -156,6 +171,21 @@ namespace EasyBay.Terminal
             uWindow.Owner = this;
             uWindow.ShowDialog();
             Refresh();
+        }
+
+        private void AllBtn(object sender, RoutedEventArgs e)
+        {
+            GetPage();
+        }
+
+        private void MyBtn(object sender, RoutedEventArgs e)
+        {
+            GetMy();
+        }
+
+        private void TrackedBtn(object sender, RoutedEventArgs e)
+        {
+            GetTracked();
         }
     }
 }

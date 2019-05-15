@@ -48,13 +48,15 @@ namespace EasyBay.Terminal.API
                 new KeyValuePair<string, string>("password", password)
             });
             var response = await client.PostAsync("user/token", content);
-            return response.IsSuccessStatusCode ? await response.Content.ReadAsStringAsync() : null;
+            return response.IsSuccessStatusCode ? 
+                await response.Content.ReadAsStringAsync() : null;
         }
 
         public async Task<User> GetUser(string username)
         {
             var response = await client.GetAsync($"user/{username}");
-            return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync()) : null;
+            return response.IsSuccessStatusCode ? 
+                JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync()) : null;
         }
 
         public async Task<bool> EditUser(string username, string password, string email)
@@ -91,13 +93,29 @@ namespace EasyBay.Terminal.API
             });
             var response = await client.PostAsync("lots/all", content);
             string rs = await response.Content.ReadAsStringAsync();
-            return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<List<Lot>>(rs) : null;
+            return response.IsSuccessStatusCode ? 
+                JsonConvert.DeserializeObject<List<Lot>>(rs) : null;
         }
 
         public async Task<Lot> GetLot(int lotId)
         {
             var response = await client.GetAsync($"lots/{lotId}");
-            return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<Lot>(await response.Content.ReadAsStringAsync()) : null;
+            return response.IsSuccessStatusCode ? 
+                JsonConvert.DeserializeObject<Lot>(await response.Content.ReadAsStringAsync()) : null;
+        }
+
+        public async Task<List<Lot>> GetTrackedLots()
+        {
+            var response = await client.GetAsync($"lots/tracked");
+            return response.IsSuccessStatusCode ? 
+                JsonConvert.DeserializeObject<List<Lot>>(await response.Content.ReadAsStringAsync()) : null;
+        }
+
+        public async Task<List<Lot>> GetUserLots()
+        {
+            var response = await client.GetAsync($"lots/user");
+            return response.IsSuccessStatusCode ? 
+                JsonConvert.DeserializeObject<List<Lot>>(await response.Content.ReadAsStringAsync()) : null;
         }
 
         public async Task<bool> EditLot(EditLotRequest request)

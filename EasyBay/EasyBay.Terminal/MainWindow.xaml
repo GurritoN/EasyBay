@@ -47,9 +47,9 @@
             </Border>
         </ScrollViewer>
 
-        <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 20 0 0" Width="150">All Lots</Button>
-        <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 60 0 0" Width="150">My Lots</Button>
-        <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 100 0 0" Width="150">Tracked Lots</Button>
+        <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 20 0 0" Width="150" Click="AllBtn">All Lots</Button>
+        <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 60 0 0" Width="150" Click="MyBtn">My Lots</Button>
+        <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 100 0 0" Width="150" Click="TrackedBtn">Tracked Lots</Button>
 
         <Button Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 50 0 0" Width="150" Click="CreateLot">Create Lot</Button>
 

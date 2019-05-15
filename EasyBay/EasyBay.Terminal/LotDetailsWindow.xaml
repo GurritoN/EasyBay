@@ -33,7 +33,7 @@
 
         <Image Name="Img" Grid.RowSpan="3" Grid.Row="1" Source="D:\EasyBay\EasyBay\EasyBay.Terminal\img\default.jpg"></Image>
 
-        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="LotName" FontFamily="Georgia" FontSize="25"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="LotName" FontFamily="Georgia" FontSize="30"></TextBlock>
 
         <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Georgia" FontSize="24">Description:</Label>
         <TextBlock Grid.Row="1" Grid.RowSpan="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Desc" TextWrapping="Wrap" FontFamily="Georgia" FontSize="24"></TextBlock>
