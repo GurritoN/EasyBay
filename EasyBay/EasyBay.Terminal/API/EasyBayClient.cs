@@ -20,16 +20,19 @@ namespace EasyBay.Terminal.API
         {
             client = new HttpClient();
             client.BaseAddress = new Uri(URI);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.DefaultRequestHeaders.Authorization 
+                = new AuthenticationHeaderValue("Bearer", token);
         }
 
         #region User
 
-        public static async Task<bool> CreateUser(string username, string password, string email)
+        public static async Task<bool> CreateUser(
+            string username, string password, string email)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(URI);
-            var content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() {
+            var content = new FormUrlEncodedContent(
+                new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("username", username),
                 new KeyValuePair<string, string>("password", password),
                 new KeyValuePair<string, string>("email", email)
@@ -38,27 +41,34 @@ namespace EasyBay.Terminal.API
             return response.IsSuccessStatusCode;
         }
 
-        public static async Task<string> GetToken(string username, string password)
+        public static async Task<string> GetToken(
+            string username, string password)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(URI);
-            var content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() {
+            var content = new FormUrlEncodedContent(
+                new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("username", username),
                 new KeyValuePair<string, string>("password", password)
             });
             var response = await client.PostAsync("user/token", content);
-            return response.IsSuccessStatusCode ? await response.Content.ReadAsStringAsync() : null;
+            return response.IsSuccessStatusCode 
+                ? await response.Content.ReadAsStringAsync() : null;
         }
 
         public async Task<User> GetUser(string username)
         {
             var response = await client.GetAsync($"user/{username}");
-            return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync()) : null;
+            return response.IsSuccessStatusCode 
+                ? JsonConvert.DeserializeObject<User>(
+                    await response.Content.ReadAsStringAsync()) : null;
         }
 
-        public async Task<bool> EditUser(string username, string password, string email)
+        public async Task<bool> EditUser(
+            string username, string password, string email)
         {
-            var content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() {
+            var content = new FormUrlEncodedContent(
+                new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("username", username),
                 new KeyValuePair<string, string>("password", password),
                 new KeyValuePair<string, string>("email", email)
@@ -84,18 +94,23 @@ namespace EasyBay.Terminal.API
 
         public async Task<List<Lot>> GetLotPage(int page, int pagesize)
         {
-            var content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() {
+            var content = new FormUrlEncodedContent(
+                new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("page", page.ToString()),
                 new KeyValuePair<string, string>("pagesize", pagesize.ToString())
             });
             var response = await client.PostAsync("lots/all", content);
-            return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<List<Lot>>(await response.Content.ReadAsStringAsync()) : null;
+            return response.IsSuccessStatusCode 
+                ? JsonConvert.DeserializeObject<List<Lot>>(
+                    await response.Content.ReadAsStringAsync()) : null;
         }
 
         public async Task<Lot> GetLot(int lotId)
         {
             var response = await client.GetAsync($"lots/{lotId}");
-            return response.IsSuccessStatusCode ? JsonConvert.DeserializeObject<Lot>(await response.Content.ReadAsStringAsync()) : null;
+            return response.IsSuccessStatusCode
+                ? JsonConvert.DeserializeObject<Lot>(
+                    await response.Content.ReadAsStringAsync()) : null;
         }
 
         public async Task<bool> EditLot(EditLotRequest request)
@@ -117,7 +132,8 @@ namespace EasyBay.Terminal.API
 
         public async Task<bool> RaisePrice(int lotId, decimal newPrice)
         {
-            var content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() {
+            var content = new FormUrlEncodedContent(
+                new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("lotId", lotId.ToString()),
                 new KeyValuePair<string, string>("newPrice", newPrice.ToString())
             });
@@ -127,7 +143,8 @@ namespace EasyBay.Terminal.API
 
         public async Task<bool> BuyOut(int lotId)
         {
-            var content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>() {
+            var content = new FormUrlEncodedContent(
+                new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("lotId", lotId.ToString())
             });
             var response = await client.PostAsync("action/buyout", content);

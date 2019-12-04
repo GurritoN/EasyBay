@@ -12,9 +12,15 @@ namespace EasyBay.DataBase
     {
         private AuctionContext _context;
 
-        public IQueryable<User> Users => _context.Users.Include(u => u.TrackedLots).Include(u => u.LotsForSale).Include(u => u.BoughtLots);
+        public IQueryable<User> Users => _context.Users.Include(
+            u => u.TrackedLots).Include(
+            u => u.LotsForSale).Include(
+            u => u.BoughtLots);
 
-        public IQueryable<Lot> Lots => _context.Lots.Include(l => l.Owner).Include(l => l.CurrentBuyer).Include(l => l.Tags);
+        public IQueryable<Lot> Lots => _context.Lots.Include(
+            l => l.Owner).Include(
+            l => l.CurrentBuyer).Include(
+            l => l.Tags);
 
         public IQueryable<Tag> Tags => _context.Tags;
 

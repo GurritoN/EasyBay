@@ -79,6 +79,7 @@
             <div class="timer_section_desc">SEC</div>
         </div>
     </div>
+
     <script type="text/javascript">
 	function timer(f) {
                 var date = new Date(f);
@@ -89,8 +90,6 @@
 			var diff = f_time - n_time;
 			if(diff <= 0) return false;
 			var left = diff % 1000;
-
-			//секунды
 			diff = Math.floor(diff / 1000);
 			var s = diff % 60;
 			if(s < 10) {
@@ -100,7 +99,6 @@
 				$(".seconds_1").html(Math.floor(s / 10));
 				$(".seconds_2").html(s % 10);
 			}
-			//минуты
 			diff = Math.floor(diff / 60);
 			var m = diff % 60;
 			if(m < 10) {
@@ -110,7 +108,6 @@
 				$(".minutes_1").html(Math.floor(m / 10));
 				$(".minutes_2").html(m % 10);
 			}
-			//часы
 			diff = Math.floor(diff / 60);
 			var h = diff % 24;
 			if(h < 10) {
@@ -120,7 +117,6 @@
 				$(".hours_1").html(Math.floor(h / 10));
 				$(".hours_2").html(h % 10);
 			}
-			//дни
 			var d = Math.floor(diff / 24);
 			if(d < 10) {
 				$(".days_1").html(0);
@@ -180,7 +176,8 @@ price.onblur = function () {
                         $('#raise').prop('disabled', true);
                         $('#price').css("border", "3px red solid");
                     }
-                    else  if (parseFloat(this.value) <= parseFloat(@Model.CurrentPrice)) {
+                    else if (parseFloat(this.value)
+                        <= parseFloat(@Model.CurrentPrice)) {
                         this.className = "error";
                         error.innerHTML = 'Less then old balance\n'
                         $('#raise').prop('disabled', true);

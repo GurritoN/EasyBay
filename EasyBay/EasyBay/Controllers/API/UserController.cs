@@ -36,14 +36,16 @@ namespace EasyBay.Controllers.API
         }
 
         [HttpPost]
-        public void Create([FromForm]string username, [FromForm]string password, [FromForm]string email)
+        public void Create([FromForm]string username,
+            [FromForm]string password, [FromForm]string email)
         {
             facade.CreateNewUser(username, password, email);
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut]
-        public void Edit([FromForm]string username, [FromForm]string password, [FromForm]string email)
+        public void Edit([FromForm]string username,
+            [FromForm]string password, [FromForm]string email)
         {
             if (User.IsInRole(Role.Admin) || username == User.Identity.Name)
                 facade.EditUser(username, password, email);
@@ -60,7 +62,8 @@ namespace EasyBay.Controllers.API
         }
 
         [HttpPost("token")]
-        public string Token([FromForm]string username, [FromForm]string password)
+        public string Token([FromForm]string username,
+            [FromForm]string password)
         {
             var identity = GetIdentity(username, password);
             if (identity == null)
@@ -76,7 +79,9 @@ namespace EasyBay.Controllers.API
                     notBefore: now,
                     claims: identity.Claims,
                     expires: now.Add(TimeSpan.FromDays(1)),
-                    signingCredentials: new SigningCredentials(Auth.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                    signingCredentials: new SigningCredentials(
+                        Auth.GetSymmetricSecurityKey(),
+                        SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             return encodedJwt;
@@ -93,11 +98,11 @@ namespace EasyBay.Controllers.API
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
                 };
                 ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                new ClaimsIdentity(claims, "Token",
+                ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
                 return claimsIdentity;
             }
-
             return null;
         }
     }

@@ -32,7 +32,8 @@
         var regularExpression = /^[a-zA-Z0-9!#$%^&*]{6,16}$/;
         var newPassword = this.value;
 
-        if(newPassword.length < minNumberofChars || newPassword.length > maxNumberofChars){
+        if (newPassword.length < minNumberofChars
+            || newPassword.length > maxNumberofChars) {
             this.className = "error";
             error.innerHTML = 'Not corrected password'
             $('#password').css("border","3px red solid");

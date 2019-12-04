@@ -57,7 +57,21 @@ namespace EasyBay.Controllers
             }
             return View(facade.GetUser(username));
         }
-    
+        
+        [HttpGet("User/AddLot")]
+        [Authorize]
+        public IActionResult AddLot()
+        {
+
+        }
+
+        [HttpPost("User/AddLot")]
+        [Authorize]
+        public IActionResult AddLot(AddLotModel model)
+        {
+
+        }
+
 
         [HttpGet]
         public IActionResult Login()
@@ -118,9 +132,13 @@ namespace EasyBay.Controllers
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, role)
             };
 
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            ClaimsIdentity id = new ClaimsIdentity(claims,
+                "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
 
-            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(id));
         }
 
         [Authorize]

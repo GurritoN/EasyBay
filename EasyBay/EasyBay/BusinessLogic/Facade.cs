@@ -39,7 +39,10 @@ namespace EasyBay.BusinessLogic
             db.SaveChanges();
         }
 
-        public Lot CreateNewLot(string username, string name, string description, decimal startingPrice, decimal buyOutPrice, DateTime tradeFinishTime, List<string> tags)
+        public Lot CreateNewLot(string username, string name,
+            string description, decimal startingPrice,
+            decimal buyOutPrice, DateTime tradeFinishTime,
+            List<string> tags)
         {
             if (startingPrice < 0 || startingPrice <= 0)
                 throw new ArgumentException("Prices can't be negative");
@@ -110,7 +113,9 @@ namespace EasyBay.BusinessLogic
             db.SaveChanges();
         }
 
-        public void EditLot(int lotID, string name, string description, decimal? buyOutPrice, DateTime? tradeFinishTime, List<string> tags)
+        public void EditLot(int lotID, string name,
+            string description, decimal? buyOutPrice,
+            DateTime? tradeFinishTime, List<string> tags)
         {
             Lot lot = GetLot(lotID);
             if (name != null)
@@ -120,7 +125,8 @@ namespace EasyBay.BusinessLogic
             if (buyOutPrice.HasValue)
             {
                 if (buyOutPrice.Value <= lot.CurrentPrice)
-                    throw new ArgumentException("New buyout price must be more than current price");
+                    throw new ArgumentException(
+                        "New buyout price must be more than current price");
                 lot.BuyOutPrice = buyOutPrice.Value;
             }
             if (tradeFinishTime.HasValue)
@@ -224,9 +230,11 @@ namespace EasyBay.BusinessLogic
 
         public void AddImageToLot(int lotId, Stream image)
         {
-            string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            string path = System.IO.Path.Combine(
+                Directory.GetCurrentDirectory(), "wwwroot", "images");
             path += $@"\lotimages\{lotId}.jpg";
-            using (FileStream fs = File.Exists(path) ? File.OpenWrite(path) : File.Create(path))
+            using (FileStream fs = File.Exists(path)
+                ? File.OpenWrite(path) : File.Create(path))
             {
                 image.CopyTo(fs);
             }
@@ -234,7 +242,8 @@ namespace EasyBay.BusinessLogic
 
         public Stream GetLotImage(int lotId)
         {
-            string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            string path = System.IO.Path.Combine(
+                Directory.GetCurrentDirectory(), "wwwroot", "images");
             path += $@"\lotimages\{lotId}.jpg";
             return File.Exists(path) ? File.OpenWrite(path) : null;
         }

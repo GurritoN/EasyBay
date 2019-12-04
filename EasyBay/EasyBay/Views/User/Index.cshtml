@@ -21,6 +21,11 @@
                 <br />
 
                 <a class="btn grow" asp-controller="User" asp-action="Change" asp-route-username="@Model.Username">Change</a>
+
+                @if (Model.Role == Role.Admin)
+                {
+                    <a class="btn grow" asp-controller="User" asp-action="AddLot">Add Lot</a>
+                }
             </div>
             
 
