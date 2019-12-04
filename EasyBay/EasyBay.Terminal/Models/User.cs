@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EasyBay.Terminal.Models
 {
-    class User
+    public class User
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -16,9 +16,5 @@ namespace EasyBay.Terminal.Models
         public decimal LockedBalance { get; set; }
         public decimal FreeBalance => Balance - LockedBalance;
         public string Role { get; set; }
-
-        public List<int> LotsForSale { get; set; }
-        public List<int> TrackedLots { get; set; }
-        public List<int> BoughtLots { get; set; }
     }
 }

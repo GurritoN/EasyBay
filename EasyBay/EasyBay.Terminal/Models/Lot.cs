@@ -17,6 +17,6 @@ namespace EasyBay.Terminal.Models
         public int? CurrentBuyerId { get; set; }
 
         public int OwnerId { get; set; }
-        public List<string> Tags { get; set; }
+        public List<Tag> Tags { get; set; }
     }
 }

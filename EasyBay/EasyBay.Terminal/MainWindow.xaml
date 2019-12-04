@@ -5,10 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EasyBay.Terminal"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <Button Click="Register">Register</Button>
-        <Button Click="Login">Login</Button>
-        <Button Click="Get">Get</Button>
-    </StackPanel>
+        Title="EasyBay Terminal" Background="LightGray">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Georgia" />
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Menu VerticalAlignment="Top" Height="18" Grid.ColumnSpan="3">
+            <MenuItem Header="File">
+                <MenuItem Header="Register" Click="Register" ></MenuItem>
+                <MenuItem Header="Login" Click="Login"></MenuItem>
+                <Separator />
+                <MenuItem Header="Exit" Click="Exit" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="User" Click="UserPage">
+
+            </MenuItem>
+        </Menu>
+
+        <Image Grid.Row="1" Grid.Column="1" Source="D:\EasyBay\EasyBay\EasyBay.Terminal\img\EasyBay.png"></Image>
+
+        <TextBlock Name="Username" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" FontSize="45"></TextBlock>
+        <TextBlock Name="Balance" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" FontSize="45"></TextBlock>
+        <ScrollViewer Grid.Row="2" Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="0 0 0 20" Background="White">
+            <Border BorderThickness="1" BorderBrush="Gray">
+                <StackPanel Name="LotList">
+
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+
+        <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 20 0 0" Width="150" Click="AllBtn">All Lots</Button>
+        <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 60 0 0" Width="150" Click="MyBtn">My Lots</Button>
+        <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 100 0 0" Width="150" Click="TrackedBtn">Tracked Lots</Button>
+
+        <Button Grid.Column="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 50 0 0" Width="150" Click="CreateLot">Create Lot</Button>
+
+        <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 20 20" Click="LeftPage"> &lt;&lt; </Button>
+        <Button Grid.Column="2" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 0 0 20" Click="RightPage">&gt;&gt;</Button>
+    </Grid>
 </Window>

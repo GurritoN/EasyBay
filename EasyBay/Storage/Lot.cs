@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,6 +21,7 @@ namespace Storage
 
         public int OwnerId { get; set; }
         [InverseProperty("LotsForSale")]
+        [JsonIgnore]
         public virtual User Owner { get; set; }
         public List<Tag> Tags { get; set; }
         public Lot()

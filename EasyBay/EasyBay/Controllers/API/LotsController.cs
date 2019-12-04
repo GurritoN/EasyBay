@@ -32,6 +32,20 @@ namespace EasyBay.Controllers.API
                 pagesize * page).Take(pagesize);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("user")]
+        public IEnumerable<Lot> Users()
+        {
+            return facade.GetOwnedLots(User.Identity.Name);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("tracked")]
+        public IEnumerable<Lot> Tracked()
+        {
+            return facade.GetTrackedLots(User.Identity.Name);
+        }
+
         [HttpGet("{id}")]
         public Lot Get(int id)
         {
@@ -62,7 +76,7 @@ namespace EasyBay.Controllers.API
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpDelete("{id}")]
-        public void Delete([FromForm]int id)
+        public void Delete(int id)
         {
             if (User.IsInRole(Role.Admin)
                 || facade.GetOwnedLots(User.Identity.Name).Any(l => l.Id == id))
