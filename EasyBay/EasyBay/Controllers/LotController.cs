@@ -62,6 +62,14 @@ namespace EasyBay.Controllers
             return View(lot);
         }
 
+        [HttpGet("Lot/Delete/{Id}/{username}")]
+        [Authorize]
+        public IActionResult Delete(string username, int Id)
+        {
+            facade.DeleteLot(Id);
+            return RedirectToAction("Index", "Lot", new {username=username});
+        }
+
 
         [HttpGet("Lot/Raise/{Id}/{username}")]
         [Authorize]

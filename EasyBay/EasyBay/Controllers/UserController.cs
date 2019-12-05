@@ -62,14 +62,22 @@ namespace EasyBay.Controllers
         [Authorize]
         public IActionResult AddLot()
         {
-
+            return View();
         }
 
         [HttpPost("User/AddLot")]
         [Authorize]
-        public IActionResult AddLot(AddLotModel model)
+        public IActionResult AddLot(AddLotViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                facade.CreateNewLot("admin", model.Name, model.Description, model.StartingPrice, model.BuyOutPrice,
+                    model.TradeFinishTime, null);
 
+                return RedirectToAction("Index", "Lot", new {username = "admin"});
+            }
+
+            return View(model);
         }
 
 

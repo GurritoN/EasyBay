@@ -55,6 +55,13 @@ namespace EasyBay.BusinessLogic
             lot.BuyOutPrice = buyOutPrice;
             lot.TradeFinishTime = tradeFinishTime;
             lot.IsActive = true;
+            
+            if (tags == null)
+            {
+                db.AddLot(lot);
+                return lot;
+            }
+
             List<Tag> taglist = new List<Tag>();
             foreach (var tagName in tags)
             {
