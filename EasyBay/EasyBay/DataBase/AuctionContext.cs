@@ -23,10 +23,20 @@ namespace EasyBay.DataBase
             modelBuilder.Entity<User>().HasMany(x => x.LotsForSale).WithOne(x => x.Owner);
 
             modelBuilder.Entity<Tag>().HasKey(x => x.Id);
+
+            modelBuilder.Entity<Transaction>().HasKey(x => x.Id);
+            modelBuilder.Entity<Transaction>().HasOne(x => x.Lot);
+            modelBuilder.Entity<Transaction>().HasOne(x => x.Customer);
+
+            modelBuilder.Entity<Log>().HasKey(x => x.Id);
+            modelBuilder.Entity<Log>().HasOne(x => x.Transaction);
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Lot> Lots { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Log> Logs { get; set; }
+
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using EasyBay.Interfaces;
 using Storage;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +21,13 @@ namespace EasyBay.DataBase
 
         public IQueryable<Tag> Tags => _context.Tags;
 
+        public IQueryable<Transaction> Tansactions => _context.Transactions.Include(
+            t => t.Customer).Include(
+            t => t.Lot);
+
+        public IQueryable<Log> Logs => _context.Logs.Include(
+            l => l.Transaction);
+
         public DBController(AuctionContext context)
         {
             _context = context;
@@ -44,6 +48,18 @@ namespace EasyBay.DataBase
         public void AddUser(User user)
         {
             _context.Users.Add(user);
+            _context.SaveChanges();
+        }
+
+        public void AddTransaction(Transaction transaction)
+        {
+            _context.Transactions.Add(transaction);
+            _context.SaveChanges();
+        }
+
+        public void AddLog(Log log)
+        {
+            _context.Logs.Add(log);
             _context.SaveChanges();
         }
 

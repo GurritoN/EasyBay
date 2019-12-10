@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EasyBay.BusinessLogic
 {
@@ -26,8 +25,15 @@ namespace EasyBay.BusinessLogic
             User user = GetUser(username);
             Lot lot = GetLot(lotID);
 
-            logic.BuyOut(user, lot);
-
+            try
+            {
+                logic.BuyOut(user, lot);
+            }
+            catch(Exception exc)
+            {
+                db.AddLog(new Log { Exception = exc.Message, Created = DateTime.UtcNow, Comment = $"{nameof(BuyOut)}" });
+            }
+            db.AddTransaction(new Transaction { Created = DateTime.UtcNow, Customer = user, Lot = lot, FinalPrice = lot.CurrentPrice});
             db.SaveChanges();
         }
 
@@ -116,7 +122,14 @@ namespace EasyBay.BusinessLogic
         public void Deposit(string username, decimal amount)
         {
             User user = GetUser(username);
-            logic.Deposit(user, amount);
+            try
+            {
+                logic.Deposit(user, amount);
+            }
+            catch(Exception exc)
+            {
+                db.AddLog(new Log { Created = DateTime.UtcNow, Exception = exc.Message, Comment = $"{nameof(Deposit)}"});
+            }
             db.SaveChanges();
         }
 
@@ -225,8 +238,16 @@ namespace EasyBay.BusinessLogic
             User user = GetUser(username);
             Lot lot = GetLot(lotID);
 
-            logic.RaisePrice(user, lot, newPrice);
+            try
+            {
+                logic.RaisePrice(user, lot, newPrice);
+            }
+            catch(Exception exc)
+            {
+                db.AddLog(new Log { Created = DateTime.UtcNow, Exception = exc.Message, Comment = $"{nameof(RaisePrice)}" });
+            }
 
+            db.AddTransaction(new Transaction { Created = DateTime.UtcNow, Customer = user, Lot = lot });
             db.SaveChanges();
         }
 

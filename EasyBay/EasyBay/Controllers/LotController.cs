@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using EasyBay.Interfaces;
 using EasyBay.DataBase;
 using EasyBay.BusinessLogic;
 using EasyBay.ViewModels;
 using Storage;
-using System.IO;
 
 namespace EasyBay.Controllers
 {
@@ -38,7 +29,7 @@ namespace EasyBay.Controllers
 
         [HttpGet("Lot/User/{username}")]
         [Authorize]
-        public IActionResult User(string username)
+        public new IActionResult User(string username)
         {
             ViewBag.username = username;
             return View(facade.GetBoughtLots(username).ToList());
