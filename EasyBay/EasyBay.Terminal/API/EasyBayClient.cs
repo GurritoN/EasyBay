@@ -11,7 +11,7 @@ using EasyBay.Messaging;
 
 namespace EasyBay.Terminal.API
 {
-    class EasyBayClient
+    public class EasyBayClient
     {
         private HttpClient client;
         private const string URI = @"http://localhost:51868/api/";

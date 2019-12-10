@@ -96,7 +96,7 @@ namespace EasyBay.Controllers
                     return View(facade.GetLot(Id));
                 }
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Details", "Lot", new {username=username, Id=Id});
             }
             return View(facade.GetLot(Id));
         }

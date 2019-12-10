@@ -71,6 +71,9 @@ namespace EasyBay.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.TradeFinishTime < DateTime.UtcNow)
+                    return View(model);
+
                 facade.CreateNewLot("admin", model.Name, model.Description, model.StartingPrice, model.BuyOutPrice,
                     model.TradeFinishTime, null);
 

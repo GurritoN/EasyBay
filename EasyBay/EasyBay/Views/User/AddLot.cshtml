@@ -23,6 +23,26 @@
         <label for="Description">Description</label><br />
         <input id="Description" name="Description" type="text" asp-for="Description" /><br />
         <br />
-        <button class="btn grow" type="submit">Add Lot</button>
+        <button id="confirm" class="btn grow" type="submit">Add Lot</button>
     </form>
 </fieldset>
+
+<script>
+    TradeFinishTime.onblur = function () {
+
+        if ( new Date($("#TradeFinishTime").val()) < new Date()) {
+            this.className = "error";
+            error.innerHTML = 'Not corrected date';
+            $('#TradeFinishTime').css("border", "3px red solid");
+            $('#confirm').prop('disabled', true);
+        }
+        else {
+            this.className = "";
+            error.innerHTML = "";
+            $('#confirm').prop('disabled', false);
+            $('#TradeFinishTime').css("border", "2px solid #b7b3b3");
+        }
+    };
+
+  
+</script>
