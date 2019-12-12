@@ -30,6 +30,16 @@ namespace EasyBay.DataBase
 
             modelBuilder.Entity<Log>().HasKey(x => x.Id);
             modelBuilder.Entity<Log>().HasOne(x => x.Transaction);
+
+            modelBuilder.Entity<LotTag>().HasKey(x => x.Id);
+
+            modelBuilder.Entity<UserType>().HasKey(x => x.Id);
+
+            modelBuilder.Entity<LotForSale>().HasKey(x => x.Id);
+
+            modelBuilder.Entity<BoughtLot>().HasKey(x => x.Id);
+
+            modelBuilder.Entity<TrackedLot>().HasKey(x => x.Id);
         }
 
         public DbSet<User> Users { get; set; }
@@ -37,6 +47,10 @@ namespace EasyBay.DataBase
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Log> Logs { get; set; }
-
+        public DbSet<LotTag> LotsTags { get; set; }
+        public DbSet<UserType> UserTypes { get; set; }
+        public DbSet<LotForSale> LotsForSale { get; set; }
+        public DbSet<BoughtLot> BoughtLots { get; set; }
+        public DbSet<TrackedLot> TrackedLots { get; set; }
     }
 }
